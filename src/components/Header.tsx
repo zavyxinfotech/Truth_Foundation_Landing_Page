@@ -65,7 +65,6 @@ export const Header: React.FC<HeaderProps> = ({
                 TRUTH FOUNDATION
               </span>
               <div className="flex items-center gap-1.5 pt-0.5">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#da8a24] shrink-0" />
                 <p className="text-[8px] xs:text-[10px] sm:text-xs lg:text-[13px] font-bold text-[#da8a24] uppercase tracking-widest whitespace-nowrap">
                   Registered NGO &bull; Chennai, India
                 </p>
