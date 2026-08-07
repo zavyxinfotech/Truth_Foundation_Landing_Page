@@ -1,0 +1,195 @@
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Heart, Shield, Award, Facebook, Instagram, Linkedin, X, Copy, Check, PhoneCall, ExternalLink } from 'lucide-react';
+import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
+
+export const Footer: React.FC = () => {
+  const [activeModal, setActiveModal] = useState<'privacy' | 'terms' | null>(null);
+
+  return (
+    <footer className="bg-[#f8fafc] text-slate-800 text-sm sm:text-base relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        
+        {/* Main Footer Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+          
+          {/* Column 1 (4 Cols): Brand + Quick Links (One by One) + Social Links (Below) */}
+          <div className="lg:col-span-4 space-y-5">
+            <div className="flex items-center gap-3">
+              <img
+                src={truthLogo}
+                alt="Truth Foundation Logo"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#da8a24] bg-white shrink-0 shadow-sm"
+              />
+              <div>
+                <span className="font-extrabold text-xl sm:text-2xl text-[#0a2240] tracking-tight block leading-none">TRUTH FOUNDATION</span>
+                <p className="text-xs text-[#da8a24] font-extrabold uppercase tracking-wider pt-0.5">Registered NGO • Chennai, India</p>
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-normal">
+              Truth Foundation is a registered non-profit NGO dedicated to empowering underprivileged children, seniors, and special needs communities across Tamil Nadu.
+            </p>
+
+            {/* Quick Links Aligned One by One Vertically */}
+            <div className="space-y-2 pt-1">
+              <h4 className="text-[#da8a24] font-extrabold text-xs uppercase tracking-widest">Quick Links</h4>
+              <ul className="flex flex-col space-y-2 text-xs text-slate-700 font-bold">
+                <li><a href="#why-donate" className="hover:text-[#da8a24] transition">Why Your Donation Matters</a></li>
+                <li><a href="#about" className="hover:text-[#da8a24] transition">About Truth Foundation</a></li>
+                <li><a href="#gallery" className="hover:text-[#da8a24] transition">Field Gallery</a></li>
+                <li><a href="#trust" className="hover:text-[#da8a24] transition">Trust & Statutory Audits</a></li>
+                <li><a href="#faq" className="hover:text-[#da8a24] transition">FAQs</a></li>
+              </ul>
+            </div>
+
+            {/* Social Media Links Positioned Below Quick Links */}
+            <div className="pt-2 flex items-center gap-3 text-slate-700">
+              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Instagram">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="LinkedIn">
+                <Linkedin className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2 (4 Cols): Stacked Locations One by One */}
+          <div className="lg:col-span-4 space-y-4">
+            <h4 className="text-[#0a2240] font-extrabold text-sm sm:text-base uppercase tracking-wider">Locations</h4>
+            
+            <div className="flex flex-col space-y-6 text-xs sm:text-sm">
+              
+              {/* Registered Home Office */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
+                  <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
+                  <span>Registered Home Office</span>
+                </div>
+
+                <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
+                  #244, Mallima Nagar, Vilagadupakkam,<br />
+                  Redhills, Chennai - 600052
+                </p>
+
+                <div className="flex items-center gap-1.5 text-xs text-slate-700 pl-5">
+                  <PhoneCall className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <a href="tel:04426511661" className="text-[#da8a24] font-bold hover:underline">044-26511661</a>
+                </div>
+              </div>
+
+              {/* Corporate Office */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
+                  <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
+                  <span>Corporate Office</span>
+                </div>
+
+                <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
+                  #49, Venus Nagar Main Road,<br />
+                  Kolathur, Chennai - 600099
+                </p>
+
+                <div className="flex items-center gap-1.5 text-xs text-slate-700 pl-5">
+                  <PhoneCall className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <a href="tel:04428552376" className="text-[#da8a24] font-bold hover:underline">044-28552376</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Column 3 (4 Cols): Google Maps Embed Aside Locations */}
+          <div className="lg:col-span-4 space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
+                <span className="font-extrabold text-xs sm:text-sm text-[#0a2240] uppercase tracking-wider">
+                  Corporate Office Map
+                </span>
+              </div>
+              <a
+                href="https://maps.google.com/?q=Truth+Foundation+Kolathur+Chennai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-[#da8a24] hover:text-[#c77a1e] hover:underline flex items-center gap-1"
+              >
+                <span>Open in Google Maps</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            
+            <div className="w-full h-64 lg:h-72 rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm relative bg-white">
+              <iframe
+                title="Truth Foundation Corporate Office Location Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.642940251147!2d80.2078603!3d13.1221764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5264ff9c5a15bd%3A0x429671d18bb76211!2sKolathur%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* Bottom Copyright Bar — extra bottom padding so floating Donate button never covers links */}
+        <div className="mt-10 pt-6 pb-20 sm:pb-6 border-t border-slate-200/90 flex flex-col items-center gap-3 text-center text-xs text-slate-600 font-medium sm:flex-row sm:justify-between sm:text-left">
+          <div>
+            © {new Date().getFullYear()} Truth Foundation. Developed with ❤️ by{' '}
+            <a
+              href="https://zavyx.odoo.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#da8a24] font-bold hover:underline"
+            >
+              ZAVYX InfoTech
+            </a>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 font-semibold text-xs text-slate-600">
+            <button onClick={() => setActiveModal('privacy')} className="hover:text-[#da8a24] underline cursor-pointer">Privacy Policy</button>
+            <span className="text-slate-400">•</span>
+            <button onClick={() => setActiveModal('terms')} className="hover:text-[#da8a24] underline cursor-pointer">Terms & Conditions</button>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Policy Modals */}
+      {activeModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto relative shadow-2xl">
+            <button
+              onClick={() => setActiveModal(null)}
+              className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-900 rounded-full bg-slate-100 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <h3 className="text-2xl font-bold text-[#0a2240]">
+              {activeModal === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions'}
+            </h3>
+
+            <div className="text-xs sm:text-sm text-slate-600 space-y-3 leading-relaxed">
+              <p>
+                Truth Foundation values your trust and is committed to protecting your personal data. All donor information collected on this landing page is strictly used for payment processing, receipt issuance, and donation status updates.
+              </p>
+              <p>
+                <strong>Security:</strong> All payments are processed through Razorpay's 256-bit encrypted secure checkout. We do not store credit card CVVs or net banking passwords.
+              </p>
+              <p>
+                <strong>Refunds & Cancellations:</strong> Donations once processed are non-refundable as they are immediately committed to meal procurement drives.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </footer>
+  );
+};

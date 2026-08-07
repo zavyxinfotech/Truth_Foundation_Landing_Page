@@ -1,0 +1,271 @@
+import React, { useState, useEffect } from 'react';
+import { Heart, MessageCircle, Shield, FileText, Info, ArrowRight, Utensils, HeartHandshake, GraduationCap, BookOpen, Gift, Sparkles, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Campaign } from '../types';
+import { pixelTracker } from '../utils/pixelTracker';
+import { FUTURE_CAMPAIGNS } from '../data/campaignData';
+import { AnimatedCounter } from './AnimatedCounter';
+
+import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg';
+import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg';
+import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg';
+import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg';
+
+import heroImg from '../assets/images/hero_child_meal_1785560801958.jpg';
+import volunteerImg from '../assets/images/volunteer_serving_1785560818519.jpg';
+import childrenImg from '../assets/images/happy_children_group_1785560835872.jpg';
+import servingMealsImg from '../assets/images/truth_foundation_serving_meals_1785565651158.jpg';
+import schoolKitsImg from '../assets/images/children_school_supplies_1785568082170.jpg';
+import happyChildrenMealsImg from '../assets/images/happy_children_eating_meals_1785579605636.jpg';
+
+interface HeroProps {
+  campaign: Campaign;
+  onOpenDonateModal: (amount?: number) => void;
+  onSelectCampaign?: (campaignId: string) => void;
+}
+
+export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelectCampaign }) => {
+  const [selectedAmount, setSelectedAmount] = useState<number>(campaign.suggestedAmounts[1] || campaign.minAmount || 500);
+  const [isCustom, setIsCustom] = useState<boolean>(false);
+  const [customVal, setCustomVal] = useState<string>('');
+  const [showFloatingCta, setShowFloatingCta] = useState<boolean>(false);
+
+  const activeAmount = isCustom ? (parseInt(customVal, 10) || campaign.minAmount || 100) : selectedAmount;
+
+  // Track scroll position to show floating donate button ONLY after scrolling down past hero section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 350) {
+        setShowFloatingCta(true);
+      } else {
+        setShowFloatingCta(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Hero Image Slideshow collection with realistic documentary photography
+  const heroSlides = [
+    {
+      url: heroChildLongingMeal,
+      label: campaign.title,
+      tag: 'Public Charitable Trust',
+      badge: '🏛️ Est. 5th July 2010',
+      title: 'ONE MEAL. ONE SMILE.',
+      tagline: 'You 100 can provide a nutritious meal to a child meal.',
+      subtitle: 'Every donation directly funds nutritious meals, education, and healthcare for orphaned children, abandoned seniors, and special needs children in Chennai & Thiruvallur.',
+    },
+    {
+      url: heroRedhillsOrphanage,
+      label: 'Redhills Orphanage Home',
+      tag: 'Our Campus',
+      badge: '🏡 45 Resident Boys & Girls',
+      title: 'Redhills Orphanage Home for Children.',
+      tagline: 'Dormitories, Study Halls & Playgrounds in Rural Redhills, Chennai',
+      subtitle: 'Managed by 16 committed staff members, providing full shelter, nutrition, healthcare, and education to 45 orphaned children.',
+    },
+    {
+      url: heroSpecialNeedsCare,
+      label: 'Special Needs School',
+      tag: 'Thiruvallur District',
+      badge: '♿ Special Education & Physiotherapy',
+      title: 'Special School at China Ikaadu.',
+      tagline: 'Serving 23 Children with Special Needs with Free Doorstep Van Service',
+      subtitle: 'Qualified special educators and physiotherapists providing structured learning and physical therapy.',
+    },
+    {
+      url: heroTuitionSchoolMeals,
+      label: '346 Evening Tuition Students',
+      tag: '8 Tuition Centers',
+      badge: '📚 Free Education & Supplies',
+      title: '346 Enrolled Children Supported Daily.',
+      tagline: 'Vyasarpadi, Surapattu, Perungavoor, Vichoor & 4 Other Centers',
+      subtitle: 'Providing free evening tuition, nutritious meals, backpacks, textbooks, pens, and hygiene supplies.',
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+
+  // Preload all hero slide images immediately into browser cache on mount
+  useEffect(() => {
+    heroSlides.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.url;
+    });
+  }, [campaign.id]);
+
+  // Auto transition slides slowly horizontally with fade effect every 5 seconds
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isPaused, heroSlides.length]);
+
+  // Reset to slide 0 when campaign changes
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [campaign.id]);
+
+  const handleWhatsAppClick = () => {
+    pixelTracker.trackWhatsAppClick('Hero Section');
+    const msg = encodeURIComponent(`Hello Truth Foundation! I am interested in donating meals or volunteering.`);
+    window.open(`https://wa.me/9104426511661?text=${msg}`, '_blank');
+  };
+
+  return (
+    <section className="w-full bg-[#0a2240] text-white relative overflow-hidden min-h-[580px] sm:min-h-[650px] md:min-h-[720px] lg:h-[780px] lg:min-h-[780px] flex flex-col justify-end pt-16 sm:pt-20">
+      
+      {/* Background Slideshow with Horizontal Motion */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={`${campaign.id}-${currentSlide}`}
+            initial={{ opacity: 0, x: '3%', scale: 1.02 }}
+            animate={{ 
+              opacity: 1, 
+              x: ['0%', '-2.5%'],
+              scale: [1, 1.05]
+            }}
+            exit={{ opacity: 0, x: '-3%', scale: 1.07 }}
+            transition={{ 
+              opacity: { duration: 1.1, ease: [0.4, 0, 0.2, 1] },
+              x: { duration: 6, ease: 'linear' },
+              scale: { duration: 6, ease: 'linear' }
+            }}
+            className="absolute inset-0 w-full h-full"
+          >
+            <img
+              src={heroSlides[currentSlide].url}
+              alt={`Truth Foundation NGO - ${heroSlides[currentSlide].title} - ${heroSlides[currentSlide].label}`}
+              loading="eager"
+              fetchPriority="high"
+              className="w-full h-full object-cover object-center"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* DOM Image Preloader */}
+        <div className="hidden" aria-hidden="true">
+          {heroSlides.map((s, idx) => (
+            <img key={idx} src={s.url} alt="" loading="eager" />
+          ))}
+        </div>
+
+        {/* Soft, Lightened Gradient Overlays for Vivid Photography & Crystal Clear Text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a2240]/75 via-[#0a2240]/25 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a2240]/55 via-transparent to-transparent"></div>
+
+        {/* Ambient Radial Accent Light */}
+        {/* Ambient Radial Accent Light */}
+        <div className="absolute top-1/4 -right-10 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+
+      {/* Main Hero Content - Container Aligned within max-w-7xl */}
+      <div className="relative z-10 max-w-7xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12 flex flex-col justify-end">
+        <div className="max-w-3xl space-y-2.5 sm:space-y-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-1.5 sm:space-y-3"
+            >
+              <h1 className="text-[26px] xs:text-[32px] sm:text-5xl lg:text-[60px] font-extrabold leading-tight tracking-tight text-white drop-shadow-md">
+                {heroSlides[currentSlide].title}<br />
+                <span className="text-[#da8a24] italic text-base xs:text-lg sm:text-2xl lg:text-3xl font-bold block pt-1 drop-shadow-sm">
+                  {heroSlides[currentSlide].tagline}
+                </span>
+              </h1>
+
+              <p className="text-xs xs:text-sm sm:text-base lg:text-[18px] text-blue-100 max-w-2xl leading-relaxed font-normal drop-shadow-md">
+                {heroSlides[currentSlide].subtitle}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Primary Action Button: Donate Now */}
+          <div className="pt-2 sm:pt-4 w-full relative z-20 flex flex-row items-center justify-start gap-2 sm:gap-4">
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => {
+                pixelTracker.trackDonateClick(500, `Hero Primary Button - ${campaign.title}`);
+                onOpenDonateModal(500);
+              }}
+              className="px-6 sm:px-8 py-3 sm:py-3.5 bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] rounded-xl sm:rounded-2xl font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-2xl transition cursor-pointer active:scale-98 uppercase tracking-wider relative z-20 whitespace-nowrap"
+            >
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-[#0a2240] shrink-0" />
+              <span>Donate Now</span>
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5] hidden sm:inline-block" />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Slideshow Arrow Navigation Controls - Compact Minimal Arrows Centered at Bottom */}
+        <div className="flex items-center justify-center gap-4 pt-4 pb-1 w-full z-20">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsPaused(true);
+              setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+            }}
+            className="p-1 text-white/80 hover:text-[#da8a24] transition cursor-pointer active:scale-90"
+            aria-label="Previous Slide"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsPaused(true);
+              setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+            }}
+            className="p-1 text-white/80 hover:text-[#da8a24] transition cursor-pointer active:scale-90"
+            aria-label="Next Slide"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+        </div>
+      </div>
+
+      {/* Floating Donate Now CTA Button - Positioned bottom-right */}
+      <AnimatePresence>
+        {showFloatingCta && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50"
+          >
+            <button
+              onClick={() => {
+                pixelTracker.trackDonateClick(500, 'Floating Donate Button');
+                onOpenDonateModal(500);
+              }}
+              className="bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black px-5 py-3 sm:px-6 sm:py-3.5 rounded-full shadow-2xl border-2 border-white flex items-center gap-2 text-xs sm:text-sm cursor-pointer ring-4 ring-[#da8a24]/30 uppercase tracking-wider transition-all active:scale-95"
+              aria-label="Donate Now Floating Button"
+            >
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-[#0a2240] text-[#0a2240] shrink-0 animate-pulse" />
+              <span className="font-extrabold">Donate Now</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+    </section>
+  );
+};
+
+
+
+
