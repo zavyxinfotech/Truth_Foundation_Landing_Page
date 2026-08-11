@@ -365,34 +365,38 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
             </div>
 
             {/* Razorpay Method Tabs */}
-            <div className="grid grid-cols-4 bg-slate-100 p-1 rounded-2xl text-[11px] font-bold text-slate-600">
+            <div className="grid grid-cols-2 xs:grid-cols-4 gap-1.5 bg-slate-100 p-1.5 rounded-2xl text-xs font-bold text-slate-700">
               <button
                 type="button"
                 onClick={() => setPaymentMethod('UPI')}
-                className={`py-2 rounded-xl transition flex items-center justify-center gap-1 ${paymentMethod === 'UPI' ? 'bg-white text-slate-900 shadow-xs' : ''}`}
+                className={`py-2 px-1.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${paymentMethod === 'UPI' ? 'bg-white text-slate-900 shadow-xs font-extrabold ring-1 ring-slate-200' : ''}`}
               >
-                <QrCode className="w-3.5 h-3.5 text-indigo-600" /> UPI
+                <QrCode className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span>UPI</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('Card')}
-                className={`py-2 rounded-xl transition flex items-center justify-center gap-1 ${paymentMethod === 'Card' ? 'bg-white text-slate-900 shadow-xs' : ''}`}
+                className={`py-2 px-1.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${paymentMethod === 'Card' ? 'bg-white text-slate-900 shadow-xs font-extrabold ring-1 ring-slate-200' : ''}`}
               >
-                <CreditCard className="w-3.5 h-3.5 text-indigo-600" /> Card
+                <CreditCard className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span>Card</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('NetBanking')}
-                className={`py-2 rounded-xl transition flex items-center justify-center gap-1 ${paymentMethod === 'NetBanking' ? 'bg-white text-slate-900 shadow-xs' : ''}`}
+                className={`py-2 px-1.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${paymentMethod === 'NetBanking' ? 'bg-white text-slate-900 shadow-xs font-extrabold ring-1 ring-slate-200' : ''}`}
               >
-                <Building className="w-3.5 h-3.5 text-indigo-600" /> NetBank
+                <Building className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span>NetBank</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod('Wallet')}
-                className={`py-2 rounded-xl transition flex items-center justify-center gap-1 ${paymentMethod === 'Wallet' ? 'bg-white text-slate-900 shadow-xs' : ''}`}
+                className={`py-2 px-1.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${paymentMethod === 'Wallet' ? 'bg-white text-slate-900 shadow-xs font-extrabold ring-1 ring-slate-200' : ''}`}
               >
-                <Wallet className="w-3.5 h-3.5 text-indigo-600" /> Wallet
+                <Wallet className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span>Wallet</span>
               </button>
             </div>
 

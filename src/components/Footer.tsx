@@ -1,9 +1,29 @@
+/* cspell:disable */
+/* eslint-disable */
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Heart, Shield, Award, Facebook, Instagram, Linkedin, X, Copy, Check, PhoneCall, ExternalLink } from 'lucide-react';
+import { MapPin, Facebook, Instagram, Linkedin, X, PhoneCall, ExternalLink } from 'lucide-react';
 import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
 
-export const Footer: React.FC = () => {
+export interface FooterProps {
+  onNavigateHome?: (anchor?: string) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
   const [activeModal, setActiveModal] = useState<'privacy' | 'terms' | null>(null);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, anchor: string) => {
+    e.preventDefault();
+    if (onNavigateHome) {
+      onNavigateHome(anchor);
+    } else {
+      const el = document.getElementById(anchor);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = `/#${anchor}`;
+      }
+    }
+  };
 
   return (
     <footer className="bg-[#f8fafc] text-slate-800 text-sm sm:text-base relative z-10">
@@ -18,6 +38,8 @@ export const Footer: React.FC = () => {
               <img
                 src={truthLogo}
                 alt="Truth Foundation Logo"
+                loading="lazy"
+                decoding="async"
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#da8a24] bg-white shrink-0 shadow-sm"
               />
               <div>
@@ -34,23 +56,23 @@ export const Footer: React.FC = () => {
             <div className="space-y-2 pt-1">
               <h4 className="text-[#da8a24] font-extrabold text-xs uppercase tracking-widest">Quick Links</h4>
               <ul className="flex flex-col space-y-2 text-xs text-slate-700 font-bold">
-                <li><a href="#why-donate" className="hover:text-[#da8a24] transition">Why Your Donation Matters</a></li>
-                <li><a href="#about" className="hover:text-[#da8a24] transition">About Truth Foundation</a></li>
-                <li><a href="#gallery" className="hover:text-[#da8a24] transition">Field Gallery</a></li>
-                <li><a href="#trust" className="hover:text-[#da8a24] transition">Trust & Statutory Audits</a></li>
-                <li><a href="#faq" className="hover:text-[#da8a24] transition">FAQs</a></li>
+                <li><a href="#why-donate" onClick={(e) => handleLinkClick(e, 'why-donate')} className="hover:text-[#da8a24] transition">Why Your Donation Matters</a></li>
+                <li><a href="#about" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-[#da8a24] transition">About Truth Foundation</a></li>
+                <li><a href="#gallery" onClick={(e) => handleLinkClick(e, 'gallery')} className="hover:text-[#da8a24] transition">Field Gallery</a></li>
+                <li><a href="#trust" onClick={(e) => handleLinkClick(e, 'trust')} className="hover:text-[#da8a24] transition">Trust & Statutory Audits</a></li>
+                <li><a href="#faq" onClick={(e) => handleLinkClick(e, 'faq')} className="hover:text-[#da8a24] transition">FAQs</a></li>
               </ul>
             </div>
 
             {/* Social Media Links Positioned Below Quick Links */}
             <div className="pt-2 flex items-center gap-3 text-slate-700">
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Facebook">
+              <a href="https://facebook.com/TruthFoundationNGO" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Facebook">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Instagram">
+              <a href="https://instagram.com/TruthFoundationNGO" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Instagram">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="LinkedIn">
+              <a href="https://linkedin.com/company/truth-foundation" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="LinkedIn">
                 <Linkedin className="w-4 h-4" />
               </a>
             </div>
@@ -64,9 +86,20 @@ export const Footer: React.FC = () => {
               
               {/* Registered Home Office */}
               <div className="space-y-2">
-                <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
-                  <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
-                  <span>Registered Home Office</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
+                    <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
+                    <span>Registered Home Office</span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Truth+Foundation+244+Mallima+Nagar+Vilagadupakkam+Redhills+Chennai+600052"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] sm:text-xs font-bold text-[#da8a24] hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Map</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
 
                 <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
@@ -82,9 +115,20 @@ export const Footer: React.FC = () => {
 
               {/* Corporate Office */}
               <div className="space-y-2">
-                <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
-                  <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
-                  <span>Corporate Office</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 font-extrabold text-[#0a2240] text-xs sm:text-sm">
+                    <MapPin className="w-4 h-4 text-[#da8a24] shrink-0" />
+                    <span>Corporate Office</span>
+                  </div>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Truth+Foundation+49+Venus+Nagar+Main+Road+Kolathur+Chennai+600099"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] sm:text-xs font-bold text-[#da8a24] hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Map</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
 
                 <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
@@ -111,7 +155,7 @@ export const Footer: React.FC = () => {
                 </span>
               </div>
               <a
-                href="https://maps.google.com/?q=Truth+Foundation+Kolathur+Chennai"
+                href="https://www.google.com/maps/search/?api=1&query=Truth+Foundation+49+Venus+Nagar+Main+Road+Kolathur+Chennai+600099"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-bold text-[#da8a24] hover:text-[#c77a1e] hover:underline flex items-center gap-1"
@@ -124,7 +168,7 @@ export const Footer: React.FC = () => {
             <div className="w-full h-64 lg:h-72 rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm relative bg-white">
               <iframe
                 title="Truth Foundation Corporate Office Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.642940251147!2d80.2078603!3d13.1221764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5264ff9c5a15bd%3A0x429671d18bb76211!2sKolathur%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.642940251147!2d80.2078603!3d13.1221764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5264ff9c5a15bd%3A0x429671d18bb76211!2s49%2C%20Venus%20Nagar%20Main%20Rd%2C%20Venus%20Nagar%2C%20Kolathur%2C%20Chennai%2C%20Tamil%20Nadu%20600099!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -138,7 +182,7 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Bottom Copyright Bar — extra bottom padding so floating Donate button never covers links */}
+        {/* Bottom Copyright Bar */}
         <div className="mt-10 pt-6 pb-20 sm:pb-6 border-t border-slate-200/90 flex flex-col items-center gap-3 text-center text-xs text-slate-600 font-medium sm:flex-row sm:justify-between sm:text-left">
           <div>
             © {new Date().getFullYear()} Truth Foundation. Developed with ❤️ by{' '}
@@ -168,6 +212,7 @@ export const Footer: React.FC = () => {
             <button
               onClick={() => setActiveModal(null)}
               className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-900 rounded-full bg-slate-100 cursor-pointer"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>

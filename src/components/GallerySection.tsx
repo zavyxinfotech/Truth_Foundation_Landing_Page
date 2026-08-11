@@ -191,6 +191,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                   <img
                     src={item.imageUrl}
                     alt={item.title}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
                     referrerPolicy="no-referrer"
                     draggable={false}
@@ -309,6 +311,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                     <img
                       src={activeItem.imageUrl}
                       alt={activeItem.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full max-h-[42vh] object-contain rounded-xl"
                       referrerPolicy="no-referrer"
                     />

@@ -110,6 +110,8 @@ export const TrustSection: React.FC = () => {
               <img
                 src={trustSectionOrganicMeal}
                 alt="Truth Foundation Volunteer Serving Meals to Children"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />

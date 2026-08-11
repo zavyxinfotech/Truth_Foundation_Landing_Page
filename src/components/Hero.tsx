@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, MessageCircle, Shield, FileText, Info, ArrowRight, Utensils, HeartHandshake, GraduationCap, BookOpen, Gift, Sparkles, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Campaign } from '../types';
 import { pixelTracker } from '../utils/pixelTracker';
-import { FUTURE_CAMPAIGNS } from '../data/campaignData';
-import { AnimatedCounter } from './AnimatedCounter';
 
 import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg';
 import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg';
 import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg';
 import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg';
-
-import heroImg from '../assets/images/hero_child_meal_1785560801958.jpg';
-import volunteerImg from '../assets/images/volunteer_serving_1785560818519.jpg';
-import childrenImg from '../assets/images/happy_children_group_1785560835872.jpg';
-import servingMealsImg from '../assets/images/truth_foundation_serving_meals_1785565651158.jpg';
-import schoolKitsImg from '../assets/images/children_school_supplies_1785568082170.jpg';
-import happyChildrenMealsImg from '../assets/images/happy_children_eating_meals_1785579605636.jpg';
 
 interface HeroProps {
   campaign: Campaign;
@@ -54,7 +45,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
       tag: 'Public Charitable Trust',
       badge: '🏛️ Est. 5th July 2010',
       title: 'ONE MEAL. ONE SMILE.',
-      tagline: 'You 100 can provide a nutritious meal to a child meal.',
+      tagline: 'Your ₹100 can provide a warm, nutritious meal to a child in need.',
       subtitle: 'Every donation directly funds nutritious meals, education, and healthcare for orphaned children, abandoned seniors, and special needs children in Chennai & Thiruvallur.',
     },
     {

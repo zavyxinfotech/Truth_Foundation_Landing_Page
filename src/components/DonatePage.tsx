@@ -1,15 +1,19 @@
+/* cspell:disable */
+/* eslint-disable */
 import React, { useState } from 'react';
 import { Heart, QrCode, CreditCard, Building, Wallet, ShieldCheck, Lock, CheckCircle2 } from 'lucide-react';
 import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
 import { pixelTracker } from '../utils/pixelTracker';
+import { Footer } from './Footer';
 
 interface DonatePageProps {
   initialAmount?: number;
   onClose?: () => void;
   onDonateSuccess?: () => void;
+  onNavigateHome?: (anchor?: string) => void;
 }
 
-export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onClose, onDonateSuccess }) => {
+export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onClose, onDonateSuccess, onNavigateHome }) => {
   const [selectedAmount, setSelectedAmount] = useState<number>(initialAmount);
   const [isCustom, setIsCustom] = useState<boolean>(false);
   const [customValue, setCustomValue] = useState<string>('');
@@ -26,7 +30,9 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (onClose) {
+    if (onNavigateHome) {
+      onNavigateHome();
+    } else if (onClose) {
       onClose();
     } else {
       window.location.href = '/';
@@ -71,8 +77,14 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
             </div>
           </a>
 
-          {/* Right side clean header margin */}
-          <div className="shrink-0" />
+          {/* Right side back to home link */}
+          <button
+            type="button"
+            onClick={handleLogoClick}
+            className="text-xs sm:text-sm font-bold text-[#0a2240] hover:text-[#da8a24] transition cursor-pointer"
+          >
+            ← Back to Home
+          </button>
 
         </div>
       </header>
@@ -196,7 +208,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
           </div>
 
           {/* Right Section (5 Columns Desktop): Summary Card, Payment Methods & Submit Button */}
-          <div className="lg:col-span-5 space-y-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
+          <div className="lg:col-span-5 space-y-6 bg-white p-5 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
             
             {/* SELECTED CONTRIBUTION Box */}
             <div className="bg-slate-50 border border-slate-200/80 p-4.5 rounded-2xl flex items-center justify-between">
@@ -214,43 +226,47 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
                 Select Payment Method
               </h3>
 
-              {/* Payment Method Tabs */}
-              <div className="grid grid-cols-4 bg-slate-100 p-1 rounded-2xl text-[11px] font-extrabold text-slate-700">
+              {/* Responsive Payment Method Tabs (grid-cols-2 on mobile, grid-cols-4 on sm+) */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 bg-slate-100 p-1.5 rounded-2xl text-xs font-extrabold text-slate-700">
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('UPI')}
-                  className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${
-                    paymentMethod === 'UPI' ? 'bg-white text-[#0a2240] shadow-2xs font-black' : ''
+                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
+                    paymentMethod === 'UPI' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
                   }`}
                 >
-                  <QrCode className="w-3.5 h-3.5 text-indigo-600 shrink-0" /> UPI
+                  <QrCode className="w-4 h-4 text-indigo-600 shrink-0" />
+                  <span>UPI</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('Card')}
-                  className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${
-                    paymentMethod === 'Card' ? 'bg-white text-[#0a2240] shadow-2xs font-black' : ''
+                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
+                    paymentMethod === 'Card' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
                   }`}
                 >
-                  <CreditCard className="w-3.5 h-3.5 text-indigo-600 shrink-0" /> Card
+                  <CreditCard className="w-4 h-4 text-indigo-600 shrink-0" />
+                  <span>Card</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('NetBank')}
-                  className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${
-                    paymentMethod === 'NetBank' ? 'bg-white text-[#0a2240] shadow-2xs font-black' : ''
+                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
+                    paymentMethod === 'NetBank' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
                   }`}
                 >
-                  <Building className="w-3.5 h-3.5 text-indigo-600 shrink-0" /> NetBank
+                  <Building className="w-4 h-4 text-indigo-600 shrink-0" />
+                  <span>NetBank</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('Wallet')}
-                  className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1 cursor-pointer ${
-                    paymentMethod === 'Wallet' ? 'bg-white text-[#0a2240] shadow-2xs font-black' : ''
+                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
+                    paymentMethod === 'Wallet' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
                   }`}
                 >
-                  <Wallet className="w-3.5 h-3.5 text-indigo-600 shrink-0" /> Wallet
+                  <Wallet className="w-4 h-4 text-indigo-600 shrink-0" />
+                  <span>Wallet</span>
                 </button>
               </div>
 
@@ -289,10 +305,8 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
         </form>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full text-center text-xs text-slate-500 py-6 border-t border-slate-200/80 bg-white">
-        © {new Date().getFullYear()} Truth Foundation. All rights reserved. Registered Public Charitable Trust. Powered by <strong className="text-[#da8a24]">ZAVYX InfoTech</strong>
-      </footer>
+      {/* Footer identical to home page */}
+      <Footer onNavigateHome={onNavigateHome} />
     </div>
   );
 };

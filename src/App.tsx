@@ -28,12 +28,29 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavigateHome = (anchor?: string) => {
+    setCurrentPage('home');
+    if (anchor) {
+      setTimeout(() => {
+        const el = document.getElementById(anchor);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   if (currentPage === 'donate') {
     return (
       <DonatePage
         initialAmount={donateAmount}
-        onClose={() => setCurrentPage('home')}
-        onDonateSuccess={() => setCurrentPage('home')}
+        onClose={() => handleNavigateHome()}
+        onDonateSuccess={() => handleNavigateHome()}
+        onNavigateHome={handleNavigateHome}
       />
     );
   }
@@ -57,7 +74,7 @@ export default function App() {
       <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
 
       {/* Why Your Donation Matters Section (Light #f8fafc) */}
-      <ScrollSection>
+      <ScrollSection id="why-donate">
         <WhyDonate
           onOpenDonateModal={handleOpenDonateModal}
         />
@@ -67,7 +84,7 @@ export default function App() {
       <LightToDarkDivider bgFrom="#f8fafc" bgTo="#0a2240" />
 
       {/* About Truth Foundation (Dark #0a2240) */}
-      <ScrollSection>
+      <ScrollSection id="about">
         <AboutSection />
       </ScrollSection>
 
@@ -75,7 +92,7 @@ export default function App() {
       <DarkToLightDivider bgFrom="#0a2240" bgTo="#ffffff" />
 
       {/* Field Gallery (Light #ffffff) */}
-      <ScrollSection>
+      <ScrollSection id="gallery">
         <GallerySection onOpenDonateModal={handleOpenDonateModal} />
       </ScrollSection>
 
@@ -83,7 +100,7 @@ export default function App() {
       <LightToDarkDivider bgFrom="#ffffff" bgTo="#0a2240" />
 
       {/* Trust & Accreditations Section (Dark #0a2240) */}
-      <ScrollSection>
+      <ScrollSection id="trust">
         <TrustSection />
       </ScrollSection>
 
@@ -91,7 +108,7 @@ export default function App() {
       <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
 
       {/* Testimonials (Light #f8fafc) */}
-      <ScrollSection>
+      <ScrollSection id="testimonials">
         <TestimonialsSection />
       </ScrollSection>
 
@@ -99,7 +116,7 @@ export default function App() {
       <LightToDarkDivider bgFrom="#f8fafc" bgTo="#0a2240" />
 
       {/* FAQ Section (Dark #0a2240) */}
-      <ScrollSection>
+      <ScrollSection id="faq">
         <FAQSection onOpenDonateModal={handleOpenDonateModal} />
       </ScrollSection>
 
@@ -107,7 +124,7 @@ export default function App() {
       <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
 
       {/* Footer (Light #f8fafc) */}
-      <Footer />
+      <Footer onNavigateHome={handleNavigateHome} />
 
       {/* Floating WhatsApp Widget */}
       <FloatingWhatsApp />

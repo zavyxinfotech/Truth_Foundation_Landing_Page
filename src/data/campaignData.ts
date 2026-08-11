@@ -6,16 +6,16 @@ import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.j
 import elderlyFoodCareDrive from '../assets/images/elderly_food_care_drive.jpg';
 
 import heroImg from '../assets/images/hero_child_meal_1785560801958.jpg';
-import volunteerImg from '/assets/TF_original_images/img155.jpg';
-import HealthCampsImg from '/assets/TF_original_images/img293.jpg';
-import covidCampsImg from '/assets/TF_original_images/img299.jpg';
-import childrenImg from '/assets/TF_original_images/img155.jpg';
-import servingMealsImg from '/assets/TF_original_images/img155.jpg';
-import culturalFestivalImg from '/assets/TF_original_images/img191.jpg';
-import schoolKitsImg from '/assets/TF_original_images/img125.jpg';
+import volunteerImg from '../assets/images/img155.jpg';
+import HealthCampsImg from '../assets/images/img293.jpg';
+import covidCampsImg from '../assets/images/img299.jpg';
+import childrenImg from '../assets/images/img155.jpg';
+import servingMealsImg from '../assets/images/img155.jpg';
+import culturalFestivalImg from '../assets/images/img191.jpg';
+import schoolKitsImg from '../assets/images/img125.jpg';
 import birthdayFeastImg from '../assets/images/volunteer_birthday_celebration_1785568062985.jpg';
 import festivalSweetsImg from '../assets/images/festival_joy_children_1785568098245.jpg';
-import happyChildrenMealsImg from '/assets/TF_original_images/img71.jpg';
+import happyChildrenMealsImg from '../assets/images/img71.jpg';
 
 export const DEFAULT_MONTHLY_GIVING: MonthlyGivingOptions = {
   enabled: true,
