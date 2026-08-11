@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { ShieldCheck, HeartHandshake, FileText, CheckCircle2, Home, GraduationCap, BookOpen, Sparkles } from 'lucide-react';
+import { HeartHandshake, Home, GraduationCap, BookOpen } from 'lucide-react';
 import { motion } from 'motion/react';
 
 const FEATURES = [
@@ -77,7 +77,7 @@ export const AboutSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="max-w-3xl space-y-3 mb-10 sm:mb-12"
+          className="max-w-3xl space-y-3 mb-8 sm:mb-12"
         >
           <span className="text-[#da8a24] font-extrabold text-xs sm:text-sm uppercase tracking-widest block">
             About Truth Foundation
@@ -91,13 +91,13 @@ export const AboutSection: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* 3D Horizontal Auto-Scroll Showcase Cards */}
+        {/* Responsive 4-Card Showcase: Grid on Desktop (0 cropping), Auto-Scroll Carousel on Mobile */}
         <div className="relative py-2">
           <div
             ref={scrollContainerRef}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            className="flex gap-6 sm:gap-8 overflow-x-auto py-6 px-2 sm:px-4 scrollbar-none snap-x snap-mandatory scroll-smooth items-center justify-start lg:justify-between w-full [perspective:1000px]"
+            className="flex lg:grid lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-5 overflow-x-auto lg:overflow-x-visible py-6 px-1 sm:px-2 scrollbar-none snap-x snap-mandatory scroll-smooth items-stretch justify-start w-full [perspective:1000px]"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {FEATURES.map((feature, idx) => {
@@ -110,10 +110,10 @@ export const AboutSection: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className={`w-[85vw] max-w-[290px] sm:w-[310px] lg:w-[280px] xl:w-[300px] shrink-0 snap-center rounded-3xl p-6 sm:p-7 bg-[#071b34] backdrop-blur-md border transition-all duration-500 transform-gpu cursor-pointer space-y-4 flex flex-col justify-between group ${
+                  className={`w-[82vw] max-w-[280px] sm:w-[310px] lg:w-full lg:max-w-none shrink-0 lg:shrink snap-center rounded-3xl p-6 sm:p-7 bg-[#071b34] backdrop-blur-md border transition-all duration-500 transform-gpu cursor-pointer space-y-4 flex flex-col justify-between group ${
                     isActive
-                      ? 'scale-105 border-[#da8a24] shadow-2xl z-20 ring-4 ring-[#da8a24]/20 [transform:rotateY(0deg)_translateZ(20px)]'
-                      : 'border-[#163863]/80 opacity-85 hover:opacity-100 hover:border-[#da8a24]/90 z-10 [transform:rotateY(6deg)]'
+                      ? 'scale-105 lg:scale-[1.02] border-[#da8a24] shadow-2xl z-20 ring-4 ring-[#da8a24]/20 [transform:rotateY(0deg)_translateZ(20px)]'
+                      : 'border-[#163863]/80 opacity-85 hover:opacity-100 hover:border-[#da8a24]/90 z-10 [transform:rotateY(0deg)] lg:hover:scale-[1.02]'
                   }`}
                 >
                   <div className="space-y-3">
@@ -136,8 +136,8 @@ export const AboutSection: React.FC = () => {
             })}
           </div>
 
-          {/* Pagination Indicators */}
-          <div className="flex items-center justify-center pt-4">
+          {/* Pagination Indicators on Mobile */}
+          <div className="flex lg:hidden items-center justify-center pt-4">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-[#071b34] backdrop-blur-md rounded-full border border-[#163863]">
               {FEATURES.map((_, i) => (
                 <button
