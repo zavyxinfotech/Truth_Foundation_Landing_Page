@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Heart, QrCode, CreditCard, Building, Wallet, ShieldCheck, Lock, CheckCircle2 } from 'lucide-react';
 import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
 import { pixelTracker } from '../utils/pixelTracker';
-import { Footer } from './Footer';
 
 interface DonatePageProps {
   initialAmount?: number;
@@ -305,8 +304,18 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
         </form>
       </main>
 
-      {/* Footer identical to home page */}
-      <Footer onNavigateHome={onNavigateHome} />
+      {/* Simple minimal footer for Donate page */}
+      <footer className="py-6 border-t border-amber-200/50 text-center text-xs text-slate-500 font-medium">
+        © {new Date().getFullYear()} Truth Foundation • Registered NGO. All rights reserved. Developed with ❤️ by{' '}
+        <a
+          href="https://zavyx.odoo.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#da8a24] font-bold hover:underline"
+        >
+          ZAVYX InfoTech
+        </a>
+      </footer>
     </div>
   );
 };
