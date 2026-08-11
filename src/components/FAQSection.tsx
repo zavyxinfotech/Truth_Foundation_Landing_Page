@@ -24,7 +24,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenDonateModal }) => 
   const handleWhatsApp = () => {
     pixelTracker.trackWhatsAppClick('FAQ Section');
     const msg = encodeURIComponent(`Hello Truth Foundation! I have a question regarding donations/tax receipts that wasn't answered on the FAQ section.`);
-    window.open(`https://wa.me/9104426511661?text=${msg}`, '_blank');
+    window.open(`https://wa.me/916382721178?text=${msg}`, '_blank');
   };
 
   return (

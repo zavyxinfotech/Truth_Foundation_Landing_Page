@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   const handleWhatsAppClick = () => {
     pixelTracker.trackWhatsAppClick('Header WhatsApp Button');
     const msg = encodeURIComponent(`Hello Truth Foundation! I am interested in donating meals or volunteering.`);
-    window.open(`https://wa.me/9104426511661?text=${msg}`, '_blank');
+    window.open(`https://wa.me/916382721178?text=${msg}`, '_blank');
   };
 
   return (

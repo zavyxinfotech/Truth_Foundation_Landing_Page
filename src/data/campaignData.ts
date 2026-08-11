@@ -166,7 +166,7 @@ export const FAQS: FAQItem[] = [
   {
     category: 'Volunteering & Visits',
     question: 'Can I visit the Redhills campus or special school to volunteer?',
-    answer: 'Yes! We warmly welcome donors and volunteers to visit our Redhills Orphanage campus, Old Age Home, or Thiruvallur Special School. You can volunteer for teaching, spending time with elders, or distributing evening tuition kits. Call 044-26511661 or WhatsApp +91 98402 78910 to schedule a visit.'
+    answer: 'Yes! We warmly welcome donors and volunteers to visit our Redhills Orphanage campus, Old Age Home, or Thiruvallur Special School. You can volunteer for teaching, spending time with elders, or distributing evening tuition kits. Call 044-26511661 or WhatsApp +91 63827 21178 to schedule a visit.'
   }
 ];
 
