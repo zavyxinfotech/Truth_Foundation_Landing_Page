@@ -226,7 +226,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
                 Truth Foundation values your trust and is committed to protecting your personal data. All donor information collected on this landing page is strictly used for payment processing, receipt issuance, and donation status updates.
               </p>
               <p>
-                <strong>Security:</strong> All payments are processed through Razorpay's 256-bit encrypted secure checkout. We do not store credit card CVVs or net banking passwords.
+                <strong>Security:</strong> All payments are processed through Razorpay's secure encrypted checkout. We do not store credit card CVVs or net banking passwords.
               </p>
               <p>
                 <strong>Refunds & Cancellations:</strong> Donations once processed are non-refundable as they are immediately committed to meal procurement drives.

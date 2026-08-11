@@ -470,8 +470,8 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
             <h3 className="text-xl font-bold font-serif text-slate-900">Communicating with Razorpay Gateway...</h3>
             <p className="text-xs text-slate-500">
               {frequency === 'Monthly'
-                ? 'Registering 256-bit encrypted Razorpay Recurring Mandate...'
-                : 'Encrypting 256-bit payment details...'}
+                ? 'Registering secure Razorpay Recurring Mandate...'
+                : 'Encrypting secure payment details...'}
             </p>
           </div>
         )}

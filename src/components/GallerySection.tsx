@@ -116,10 +116,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
         </motion.div>
 
         {/* ── 5-Card Cinematic 3D Rotating Stage ──────────────────── */}
-        {/* py-10 gives top+bottom breathing room so cards are never clipped */}
         <div
-          className="relative w-full flex items-center justify-center py-10"
-          style={{ minHeight: 640, perspective: 1500 }}
+          className="relative w-full flex items-center justify-center py-2 sm:py-6 lg:py-10 min-h-[350px] xs:min-h-[420px] sm:min-h-[540px] md:min-h-[580px] lg:min-h-[640px]"
+          style={{ perspective: 1500 }}
         >
           {/* Left Arrow */}
           <button

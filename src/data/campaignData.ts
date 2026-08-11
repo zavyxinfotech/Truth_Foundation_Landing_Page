@@ -5,16 +5,11 @@ import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg';
 import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg';
 import elderlyFoodCareDrive from '../assets/images/elderly_food_care_drive.jpg';
 
-import heroImg from '../assets/images/hero_child_meal_1785560801958.jpg';
-import volunteerImg from '../assets/images/img155.jpg';
 import HealthCampsImg from '../assets/images/img293.jpg';
 import covidCampsImg from '../assets/images/img299.jpg';
-import childrenImg from '../assets/images/img155.jpg';
 import servingMealsImg from '../assets/images/img155.jpg';
 import culturalFestivalImg from '../assets/images/img191.jpg';
 import schoolKitsImg from '../assets/images/img125.jpg';
-import birthdayFeastImg from '../assets/images/volunteer_birthday_celebration_1785568062985.jpg';
-import festivalSweetsImg from '../assets/images/festival_joy_children_1785568098245.jpg';
 import happyChildrenMealsImg from '../assets/images/img71.jpg';
 
 export const DEFAULT_MONTHLY_GIVING: MonthlyGivingOptions = {
@@ -22,7 +17,7 @@ export const DEFAULT_MONTHLY_GIVING: MonthlyGivingOptions = {
   suggestedAmounts: [300, 500, 1000, 2500],
   defaultAmount: 500,
   perks: [
-    'Automated monthly 80G tax exemption receipts',
+    'Automated monthly donation receipts',
     'Quarterly photo & video progress reports on WhatsApp',
     'Cancel, pause, or adjust your recurring amount anytime'
   ],
@@ -40,8 +35,8 @@ export const CURRENT_CAMPAIGN: Campaign = {
   donorsCount: 12480,
   minAmount: 100,
   suggestedAmounts: [100, 500, 1000, 2500, 5000],
-  badge: '80G Tax Exempted (50% Exemption Under Sec 80G)',
-  description: 'Launched on 5th July 2010, Truth Foundation (A Public Charitable Trust) operates a Orphanage in Redhills Chennai, an Old Age Day Care Home, a Special School for mentally retarded children in Thiruvallur, and 8 Free Evening Tuition Centers serving 346+ children with education, food, and hygiene supplies.',
+  badge: 'Registered Public Charitable Trust (Est. 2010)',
+  description: 'Launched on 5th July 2010, Truth Foundation (A Public Charitable Trust) operates an Orphanage in rural Redhills Chennai, an Old Age Day Care Home, a Special School for mentally retarded children in Thiruvallur, and 8 Free Evening Tuition Centers serving 346+ children with education, food, and hygiene supplies.',
   monthlyOptions: DEFAULT_MONTHLY_GIVING
 };
 
@@ -63,7 +58,7 @@ export const FUTURE_CAMPAIGNS: Campaign[] = [
   },
   {
     id: 'special-needs-school',
-    title: 'Special School for Special Needs Children',
+    title: 'Special School for Mentally Retarded Children',
     subtitle: 'Special education, physiotherapy, and dedicated free van pickup for 23 children in Thiruvallur.',
     tagline: 'China Ikaadu, Thiruvallur District',
     heroImage: heroSpecialNeedsCare,
@@ -93,7 +88,7 @@ export const FUTURE_CAMPAIGNS: Campaign[] = [
     minAmount: 500,
     suggestedAmounts: [500, 1500, 3000, 7500],
     badge: 'Senior Day Care & Shelter',
-    description: 'Providing food, shelter, periodic medical checkups, and loving care to elderly citizens left destitute on streets by family members.',
+    description: 'Providing food, shelter, periodic medical checkups, and loving care to 20 elderly citizens left destitute on streets by family members.',
     monthlyOptions: DEFAULT_MONTHLY_GIVING
   },
   {
@@ -150,28 +145,28 @@ export const DONATION_PRESETS: DonationOption[] = [
 export const FAQS: FAQItem[] = [
   {
     category: 'About Truth Foundation',
-    question: 'When was Truth Foundation established and what is its registration status?',
-    answer: 'TRUTH FOUNDATION was launched on 5th July 2010 as a Public Charitable Trust registered under the Indian Trusts Act, 1882 and Section 12A.'
+    question: 'When was Truth Foundation established and what is its objective?',
+    answer: 'TRUTH FOUNDATION was launched on 5th July 2010 as a Public Charitable Trust. Our primary mission is creating a new social order by educating marginalized rural women, men, children, and youth from Dalit and Tribal communities on their rights, decision-making, skill development, and human dignity.'
   },
   {
     category: 'Centers & Locations',
     question: 'Where are Truth Foundation centers and projects located?',
-    answer: 'Our Orphanage and Old Age Day Care Home are located in rural Redhills, Northern Chennai (#244 Mallima Nagar, Vilagadupakkam). Our Special School for special-needs children is located in China Ikaadu, Thiruvallur District (with free van pickup). Our 8 Evening Tuition Centers operate across Vyasarpadi, Pulianthope, Surapattu, Periyapalem, Vichoor, Perungavoor, Athipattu, and Thirumullaivoyal.'
+    answer: 'Our Orphanage Home (for 45 boys & girls) and Old Age Home (for 20 elders) operate on an acre of land in rural Redhills, Northern Chennai (#244 Mallima Nagar, Vilagadupakkam). Our Special School for 23 mentally retarded children operates at China Ikaadu, Thiruvallur District with dedicated free doorstep van transport. Our 8 Evening Tuition Centers serve 346 children across Vyasarpadi, Pulianthope, Surapattu, Periyapalem, Vichoor, Perungavoor, Athipattu, and Thirumullaivoyal.'
   },
   {
-    category: 'Donations & Receipts',
+    category: 'Donations & Utilization',
     question: 'Where does my donation go?',
-    answer: '100% of your donation is routed directly to supporting 45 orphaned children, 20 abandoned elders, 23 special-needs children, and 346 tuition students. Out of every ₹100 donated, ₹88 directly covers fresh grain, vegetables, school kits, and medical supplies, ₹7 covers transport/delivery, and ₹5 covers operational oversight.'
+    answer: '100% of your donation directly supports 45 orphaned children, 20 abandoned elders, 23 special-needs students, and 346 evening tuition children. Funds cover fresh grain, cooked meals, school supplies (bags, notebooks, pens), hygiene kits (soap, shampoo, toothbrush, footwear), medical care, and van transportation.'
   },
   {
     category: 'Security & Receipts',
     question: 'Is payment secure and will I receive a donation receipt?',
-    answer: 'Yes! All transactions are encrypted via 256-bit SSL using PCI-DSS compliant Razorpay gateway. You will receive an instant official donation receipt on your email and WhatsApp immediately after contribution.'
+    answer: 'Yes! All transactions are processed through Razorpay\'s secure encrypted payment gateway. You will receive an instant official donation receipt on your email and WhatsApp immediately after contribution.'
   },
   {
     category: 'Volunteering & Visits',
     question: 'Can I visit the Redhills campus or special school to volunteer?',
-    answer: 'Yes! We warmly welcome donors and volunteers to visit our  Redhills Orphanage campus, Old Age Home, or Thiruvallur Special School. You can volunteer for teaching, spending time with elders, or distributing evening tuition kits. Call 044-26511661 or WhatsApp +91 98402 78910 to schedule a visit.'
+    answer: 'Yes! We warmly welcome donors and volunteers to visit our Redhills Orphanage campus, Old Age Home, or Thiruvallur Special School. You can volunteer for teaching, spending time with elders, or distributing evening tuition kits. Call 044-26511661 or WhatsApp +91 98402 78910 to schedule a visit.'
   }
 ];
 
@@ -192,9 +187,9 @@ export const TESTIMONIALS: Testimonial[] = [
     id: 't2',
     name: 'Vikramjit Singh',
     role: 'CSR Partner',
-    location: 'New Delhi',
+    location: 'Chennai, Tamil Nadu',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-    comment: 'Truth Foundation is one of the most organized NGOs in India. Their ISO-certified kitchens and prompt 80G receipts give complete confidence to corporate & individual donors.',
+    comment: 'Truth Foundation is one of the most organized NGOs in Tamil Nadu. Their dedicated campus in Redhills and prompt receipts give complete confidence to corporate & individual donors.',
     rating: 5,
     date: '1 week ago',
     verified: true,
@@ -204,9 +199,9 @@ export const TESTIMONIALS: Testimonial[] = [
     id: 't3',
     name: 'Priya Sundaram',
     role: 'Volunteer',
-    location: 'Bengaluru, Karnataka',
+    location: 'Chennai, Tamil Nadu',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
-    comment: 'Having volunteered at their East Delhi kitchen, I can personally attest to the extreme cleanliness and care that goes into every single meal cooked for these kids.',
+    comment: 'Having volunteered at their Redhills campus kitchen in Chennai, I can personally attest to the extreme cleanliness and care that goes into every single meal cooked for these kids.',
     rating: 5,
     date: '3 days ago',
     verified: true
@@ -215,9 +210,9 @@ export const TESTIMONIALS: Testimonial[] = [
     id: 't4',
     name: 'Rameshwar Prasad',
     role: 'Teacher',
-    location: 'Primary Govt School, Noida',
+    location: 'Evening Center, Vyasarpadi, Chennai',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
-    comment: 'Since Truth Foundation started providing mid-day meals in our school, student attendance has increased by 40% and children stay attentive throughout the afternoon lessons.',
+    comment: 'Since Truth Foundation started providing evening tuition, books, bags, and nutritious snacks in our center, children\'s learning outcomes and school attendance have improved remarkably.',
     rating: 5,
     date: '5 days ago',
     verified: true
@@ -232,13 +227,13 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     imageUrl: servingMealsImg,
     location: 'Redhills, Northern Chennai',
     date: 'Est. 15+ Years (Active)',
-    description: 'Dedicated campus providing separate dormitories, study halls, playgrounds, and nutritious dining for 45 boys and girls.',
+    description: 'Dedicated campus on an acre of land providing separate dormitories, study halls, playgrounds, and nutritious dining for 45 boys and girls.',
     quote: '“Let decisions of the people be based on values of social justice, equality, truth, freedom and dignity.”',
     aspectRatio: 'tall',
     impactStat: { label: 'Residents', value: '45 Children' },
     beneficiaries: '16 Staff Members',
     readTime: '3 min read',
-    storyDetails: 'Functioning for over 15 years in rural Redhills, Chennai, TRUTH FOUNDATION operates on an acre of land equipped with separate dormitories, hygienic bathrooms, dining halls, and playgrounds for boys and girls. Cared for by 16 committed full-time and part-time staff members, the orphanage is sustained through compassionate philanthropists.'
+    storyDetails: 'Functioning for over 15 years in rural Redhills, Chennai, TRUTH FOUNDATION operates on about an acre of land equipped with separate dormitories, hygienic bathrooms, dining halls, and playgrounds for boys and girls. Cared for by 16 committed full-time and part-time staff members, the orphanage is sustained through compassionate philanthropists.'
   },
   {
     id: 'g3',
@@ -253,7 +248,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     impactStat: { label: 'Special Students', value: '23 Children' },
     beneficiaries: 'Free Van Pick & Drop',
     readTime: '3 min read',
-    storyDetails: 'Truth Foundation stepped forward to establish a specialized school for children with intellectual disabilities in China Ikaadu, Thiruvallur. Dedicated vans pick up children from their rural homes and drop them back safely. Professional educators and trained physiotherapy teachers provide continuous therapy and developmental learning.'
+    storyDetails: 'Truth Foundation stepped forward to establish a specialized school for 23 children with intellectual disabilities in China Ikaadu, Thiruvallur. Dedicated vans pick up children from their rural homes and drop them back safely. Professional special education teachers and trained physiotherapy teachers provide continuous therapy and developmental learning.'
   },
   {
     id: 'g4',
@@ -261,9 +256,9 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     category: 'Volunteers',
     imageUrl: happyChildrenMealsImg,
     location: 'Vyasarpadi, Surapattu, Perungavoor & 5 Centers',
-    date: 'Daily 5:00 PM - 8:00 PM',
-    description: 'Free evening tuition, wholesome meals, stationery kits, and hygiene supplies for 346 underprivileged children.',
-    quote: '“Nourishing young minds with free tuition, textbooks, backpacks, and personal hygiene kits.”',
+    date: 'Daily Evening Support',
+    description: 'Free evening tuition, wholesome meals, stationery kits, and hygiene supplies for 346 underprivileged children across 8 centers.',
+    quote: '“Nourishing young minds with free tuition, textbooks, backpacks, stationeries, and personal hygiene kits.”',
     aspectRatio: 'tall',
     impactStat: { label: 'Tuition Students', value: '346 Children' },
     beneficiaries: '8 Rural & Slum Centers',
@@ -283,7 +278,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     impactStat: { label: 'TV Broadcast', value: 'Makkal & Thanthi TV' },
     beneficiaries: '1,000+ Villagers',
     readTime: '2 min read',
-    storyDetails: 'Our annual Christmas & Cultural Festival at Perungavoor Village Redhills brings together hundreds of children and elders. Esteemed guests include Hon’ble Minister Thiru. B.V. Ramana (Minister for Dairy), Thiru. M. Prakash (Chairman, Minority Commission), M.P. Thiru. P. Venugopal, and M.L.A. Mr. V. Moorthy. The event was highlighted on national TV programs including Makkal TV and Thanthi TV.'
+    storyDetails: 'Our annual Christmas & Cultural Festival at Perungavoor Village Redhills brings together hundreds of children and elders. Esteemed chief guests include Hon’ble Minister Thiru. B.V. Ramana (Minister for Dairy Development), Thiru. M. Prakash (Chairman, Minority Commission), M.P. Thiru. P. Venugopal, and M.L.A. Mr. V. Moorthy. The event was broadcast on Makkal TV and Thanthi TV.'
   },
   {
     id: 'g6',
@@ -292,7 +287,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     imageUrl: HealthCampsImg,
     location: 'Redhills Bypass & Rural Thiruvallur',
     date: 'Weekly Women SHG Meetings',
-    description: 'Public health demonstrations, AIDS awareness, medical camps, and environmental sanitation education.',
+    description: 'Public health demonstrations, AIDS awareness rallies at Redhills Bypass, medical camps, and environmental sanitation education.',
     quote: '“Empowering rural women and youth to break social stigmas and maintain disease-free households.”',
     aspectRatio: 'square',
     impactStat: { label: 'Health Camps', value: 'Weekly SHGs' },
@@ -302,25 +297,25 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'g7',
-    title: 'COVID-19 & Flood Disaster Emergency Relief',
+    title: 'COVID-19 Relief Across 4 Districts',
     category: 'Events',
     imageUrl: covidCampsImg,
     location: 'Thiruvallur, Kanchipuram, Chengalpattu & Chennai',
-    date: '25,000+ Served',
-    description: 'Distributing food packets, dry ration kits, sanitation items, and clothing to blind, elderly, leprosy, and transgender communities.',
+    date: '25,000+ People Served',
+    description: 'Distributing food packets, dry ration kits, sanitation items, and clothing to blind, elderly, leprosy, gypsy, and transgender communities.',
     quote: '“Reaching the most vulnerable marginalized communities during crisis without hesitation.”',
     aspectRatio: 'tall',
     impactStat: { label: 'Relief Served', value: '25,000+ People' },
     beneficiaries: '4 Districts in TN',
     readTime: '3 min read',
-    storyDetails: 'During COVID-19 lockdowns and severe monsoon flooding, Truth Foundation deployed emergency teams across Thiruvallur, Kanchipuram, Chengalpattu, and Chennai. We supplied cooked meal packets, water bottles, sanitation kits, rice bags, and clothing specifically prioritizing visually impaired individuals, elderly persons, leprosy-affected families, gypsy communities, and transgender persons.'
+    storyDetails: 'During COVID-19 lockdowns, Truth Foundation deployed emergency teams across Thiruvallur, Kanchipuram, Chengalpattu, and Chennai. We supplied food packets, water bottles, sanitation kits, rice bags, provision kits, and clothing specifically prioritizing visually impaired individuals, elderly persons, leprosy-affected families, gypsy communities, and transgender persons.'
   }
 ];
 
 export const LIVE_DONATION_TICKER = [
-  { name: 'Rajesh K.', location: 'Mumbai', amount: '₹1,000', time: '2 mins ago' },
-  { name: 'Dr. Smita V.', location: 'Bengaluru', amount: '₹2,500', time: '4 mins ago' },
-  { name: 'Karan M.', location: 'Delhi NCR', amount: '₹500', time: '6 mins ago' },
-  { name: 'Neha P.', location: 'Pune', amount: '₹5,000', time: '11 mins ago' },
-  { name: 'Sunil G.', location: 'Hyderabad', amount: '₹100', time: '14 mins ago' }
+  { name: 'Rajesh K.', location: 'Chennai', amount: '₹1,000', time: '2 mins ago' },
+  { name: 'Dr. Smita V.', location: 'Coimbatore', amount: '₹2,500', time: '4 mins ago' },
+  { name: 'Karan M.', location: 'Madurai', amount: '₹500', time: '6 mins ago' },
+  { name: 'Neha P.', location: 'Chennai', amount: '₹5,000', time: '11 mins ago' },
+  { name: 'Sunil G.', location: 'Thiruvallur', amount: '₹100', time: '14 mins ago' }
 ];

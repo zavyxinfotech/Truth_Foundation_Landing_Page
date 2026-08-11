@@ -183,7 +183,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenDonateModal }) => 
                 </div>
                 <div className="flex items-center gap-2.5 text-xs text-slate-300 font-medium">
                   <Shield className="w-4 h-4 text-blue-400 shrink-0" />
-                  <span>256-Bit SSL Encrypted Razorpay Gateway</span>
+                  <span>Secure Encrypted Razorpay Gateway</span>
                 </div>
                 <div className="flex items-center gap-2.5 text-xs text-slate-300 font-medium">
                   <FileText className="w-4 h-4 text-[#da8a24] shrink-0" />
