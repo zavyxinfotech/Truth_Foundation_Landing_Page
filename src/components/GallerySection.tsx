@@ -284,7 +284,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-[#0a2240]/88 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6"
+              className="fixed inset-0 z-[100] bg-[#0a2240]/92 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 lg:p-8 overflow-y-auto"
               onClick={() => setIsModalOpen(false)}
             >
               <motion.div
@@ -293,18 +293,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                 exit={{ scale: 0.88, opacity: 0, y: 24 }}
                 transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-[#071b34] text-white border-2 border-[#da8a24] rounded-3xl max-w-2xl sm:max-w-3xl w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]"
+                className="bg-[#071b34] text-white border-2 border-[#da8a24] rounded-3xl max-w-2xl sm:max-w-3xl w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[85vh] my-auto"
               >
-                {/* Close button */}
+                {/* High-visibility Prominent Close button */}
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-3.5 right-3.5 z-30 bg-[#0a2240] hover:bg-rose-600 text-slate-200 hover:text-white p-2.5 rounded-full border border-[#163863] transition cursor-pointer shadow-lg"
-                  aria-label="Close"
+                  className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-40 bg-[#da8a24] text-[#0a2240] hover:bg-rose-600 hover:text-white p-2.5 sm:p-3 rounded-full border-2 border-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
+                  aria-label="Close modal"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
                 </button>
 
-                <div className="overflow-y-auto max-h-[90vh] p-4 sm:p-7 space-y-4">
+                <div className="overflow-y-auto max-h-[85vh] p-4 sm:p-7 space-y-4">
                   {/* Full image */}
                   <div className="relative rounded-2xl overflow-hidden border border-[#163863] shadow-2xl flex items-center justify-center min-h-[180px] max-h-[44vh] w-full bg-[#0a2240]">
                     <img

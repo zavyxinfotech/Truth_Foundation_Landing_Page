@@ -207,11 +207,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
 
       {/* Policy Modals */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto relative shadow-2xl">
+        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto relative shadow-2xl my-auto">
             <button
               onClick={() => setActiveModal(null)}
-              className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-900 rounded-full bg-slate-100 cursor-pointer"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-slate-600 hover:text-white bg-slate-100 hover:bg-rose-600 rounded-full border border-slate-200 shadow-md cursor-pointer transition-all hover:scale-110 active:scale-95 flex items-center justify-center"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />

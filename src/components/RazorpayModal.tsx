@@ -90,7 +90,7 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
       <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 relative my-auto animate-in zoom-in-95 duration-200 overflow-hidden">
         
         {/* Header Bar */}
