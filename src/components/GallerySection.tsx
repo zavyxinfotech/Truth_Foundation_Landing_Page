@@ -293,79 +293,86 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                 exit={{ scale: 0.88, opacity: 0, y: 24 }}
                 transition={{ type: 'spring', damping: 26, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-[#071b34] text-white border-2 border-[#da8a24] rounded-3xl max-w-2xl sm:max-w-3xl w-full overflow-hidden shadow-2xl relative flex flex-col max-h-[85vh] my-auto"
+                className="bg-[#071b34] text-white border-2 border-[#da8a24] rounded-3xl max-w-2xl sm:max-w-3xl lg:max-w-5xl w-full overflow-hidden shadow-2xl relative max-h-[90vh] lg:max-h-[82vh] my-auto"
               >
-                {/* High-visibility Prominent Close button */}
+                {/* Prominent Close button — Always visible at top-right */}
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-40 bg-[#da8a24] text-[#0a2240] hover:bg-rose-600 hover:text-white p-2.5 sm:p-3 rounded-full border-2 border-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
+                  className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-50 bg-[#da8a24] text-[#0a2240] hover:bg-rose-600 hover:text-white p-2.5 sm:p-3 rounded-full border-2 border-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
                   aria-label="Close modal"
                 >
                   <X className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
                 </button>
 
-                <div className="overflow-y-auto max-h-[85vh] p-4 sm:p-7 space-y-4">
-                  {/* Full image */}
-                  <div className="relative rounded-2xl overflow-hidden border border-[#163863] shadow-2xl flex items-center justify-center min-h-[180px] max-h-[44vh] w-full bg-[#0a2240]">
+                {/* Modal Inner Shell: 2-Column Grid on Desktop (Horizontal), Single Column on Mobile (Vertical) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 max-h-[90vh] lg:max-h-[82vh] overflow-y-auto lg:overflow-visible">
+                  
+                  {/* Left Column (Desktop 5 cols): Full-Height Field Image */}
+                  <div className="lg:col-span-5 relative w-full h-56 sm:h-72 lg:h-full min-h-[220px] lg:min-h-[460px] bg-[#0a2240] overflow-hidden border-b lg:border-b-0 lg:border-r border-[#163863]">
                     <img
                       src={activeItem.imageUrl}
                       alt={activeItem.title}
                       loading="lazy"
                       decoding="async"
-                      className="w-full max-h-[42vh] object-contain rounded-xl"
+                      className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#071b34]/80 via-transparent to-transparent lg:hidden" />
                   </div>
 
-                  <div className="space-y-3.5">
-                    {/* Badges row */}
-                    <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="bg-[#da8a24] text-[#0a2240] font-black px-3 py-1 rounded-full uppercase tracking-wider text-[10px] flex items-center gap-1">
-                        <Sparkles className="w-3 h-3" />{activeItem.category}
-                      </span>
-                      <span className="text-slate-200 flex items-center gap-1 bg-[#0a2240] px-3 py-1 rounded-full border border-[#163863]">
-                        <MapPin className="w-3.5 h-3.5 text-[#da8a24]" />
-                        {activeItem.location}
-                      </span>
-                      {activeItem.impactStat && (
-                        <span className="text-[#da8a24] flex items-center gap-1 bg-[#da8a24]/10 px-3 py-1 rounded-full border border-[#da8a24]/30 font-bold">
-                          <Users className="w-3.5 h-3.5" />
-                          {activeItem.impactStat.label}: {activeItem.impactStat.value}
+                  {/* Right Column (Desktop 7 cols): Story Content & Narrative */}
+                  <div className="lg:col-span-7 p-5 sm:p-7 lg:p-8 space-y-4 overflow-y-auto max-h-[90vh] lg:max-h-[82vh] flex flex-col justify-between pr-10 sm:pr-12 lg:pr-14">
+                    <div className="space-y-3.5">
+                      {/* Badges row */}
+                      <div className="flex flex-wrap items-center gap-2 text-xs">
+                        <span className="bg-[#da8a24] text-[#0a2240] font-black px-3 py-1 rounded-full uppercase tracking-wider text-[10px] flex items-center gap-1">
+                          <Sparkles className="w-3 h-3" />{activeItem.category}
                         </span>
+                        <span className="text-slate-200 flex items-center gap-1 bg-[#0a2240] px-3 py-1 rounded-full border border-[#163863]">
+                          <MapPin className="w-3.5 h-3.5 text-[#da8a24]" />
+                          {activeItem.location}
+                        </span>
+                        {activeItem.impactStat && (
+                          <span className="text-[#da8a24] flex items-center gap-1 bg-[#da8a24]/10 px-3 py-1 rounded-full border border-[#da8a24]/30 font-bold">
+                            <Users className="w-3.5 h-3.5" />
+                            {activeItem.impactStat.label}: {activeItem.impactStat.value}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">{activeItem.title}</h3>
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{activeItem.description}</p>
+
+                      {activeItem.storyDetails && (
+                        <div className="bg-[#0a2240] p-4 rounded-2xl border border-[#163863] text-xs text-slate-200 leading-relaxed space-y-1">
+                          <span className="text-[#da8a24] font-extrabold block text-[11px] uppercase tracking-wider">Field Narrative & Impact</span>
+                          <p>{activeItem.storyDetails}</p>
+                        </div>
+                      )}
+
+                      {activeItem.quote && (
+                        <div className="bg-[#da8a24]/10 border border-[#da8a24]/30 p-3.5 rounded-2xl flex items-start gap-3">
+                          <Quote className="w-4 h-4 text-[#da8a24] shrink-0 mt-0.5" />
+                          <p className="text-xs italic text-amber-200">{activeItem.quote}</p>
+                        </div>
                       )}
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">{activeItem.title}</h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{activeItem.description}</p>
-
-                    {activeItem.storyDetails && (
-                      <div className="bg-[#0a2240] p-4 rounded-2xl border border-[#163863] text-xs text-slate-200 leading-relaxed space-y-1">
-                        <span className="text-[#da8a24] font-extrabold block text-[11px] uppercase tracking-wider">Field Narrative & Impact</span>
-                        <p>{activeItem.storyDetails}</p>
-                      </div>
-                    )}
-
-                    {activeItem.quote && (
-                      <div className="bg-[#da8a24]/10 border border-[#da8a24]/30 p-3.5 rounded-2xl flex items-start gap-3">
-                        <Quote className="w-4 h-4 text-[#da8a24] shrink-0 mt-0.5" />
-                        <p className="text-xs italic text-amber-200">{activeItem.quote}</p>
-                      </div>
-                    )}
-
-                    <div className="pt-3 border-t border-[#163863]">
+                    <div className="pt-4 border-t border-[#163863]">
                       <button
                         onClick={() => {
                           pixelTracker.trackDonateClick(500, `Gallery: ${activeItem.title}`);
                           setIsModalOpen(false);
                           if (onOpenDonateModal) onOpenDonateModal(500);
                         }}
-                        className="w-full bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black px-6 py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
+                        className="w-full bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black px-6 py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm uppercase tracking-wider transform hover:scale-[1.01] active:scale-98"
                       >
                         <Heart className="w-4 h-4 fill-[#0a2240] animate-pulse" />
                         <span>Sponsor Meals for This Drive (₹500)</span>
                       </button>
                     </div>
                   </div>
+
                 </div>
               </motion.div>
             </motion.div>
