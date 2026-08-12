@@ -1,6 +1,7 @@
 /* cspell:disable */
 /* eslint-disable */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MapPin, Facebook, Instagram, Linkedin, X, PhoneCall, ExternalLink } from 'lucide-react';
 import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
 
@@ -10,6 +11,17 @@ export interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
   const [activeModal, setActiveModal] = useState<'privacy' | 'terms' | null>(null);
+
+  useEffect(() => {
+    if (activeModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeModal]);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, anchor: string) => {
     e.preventDefault();
@@ -206,9 +218,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
       </div>
 
       {/* Policy Modals */}
-      {activeModal && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto relative shadow-2xl my-auto">
+      {activeModal && createPortal(
+        <div className="fixed inset-0 z-[99999] bg-[#040f1a]/98 backdrop-blur-2xl flex items-center justify-center p-4 overflow-hidden" onClick={() => setActiveModal(null)}>
+          <div className="bg-white text-slate-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-4 max-h-[85vh] overflow-y-auto relative shadow-2xl my-auto" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setActiveModal(null)}
               className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-slate-600 hover:text-white bg-slate-100 hover:bg-rose-600 rounded-full border border-slate-200 shadow-md cursor-pointer transition-all hover:scale-110 active:scale-95 flex items-center justify-center"
@@ -233,7 +245,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </footer>
   );

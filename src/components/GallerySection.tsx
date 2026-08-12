@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   X,
   Quote,
   Heart,
   MapPin,
   Sparkles,
-  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   Users
@@ -19,14 +19,13 @@ interface GallerySectionProps {
 }
 
 const TOTAL = GALLERY_ITEMS.length;
-const CARD_ROTATE_INTERVAL = 2600; // ms between each card advance
+const CARD_ROTATE_INTERVAL = 3200; // ms between continuous card advances
 
 export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModal }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // isRunning = true means the carousel is auto-rotating continuously
   const [isRunning, setIsRunning] = useState(true);
-  const [dragStart, setDragStart] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const activeItem = GALLERY_ITEMS[currentIndex];
@@ -36,7 +35,19 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
     [currentIndex]
   );
 
-  // ── Continuous rotation: runs until user clicks a card ──────────────
+  // ── Lock body scroll when story modal is open ────────────────────────
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isModalOpen]);
+
+  // ── Continuous rotation: runs continuously until hovered or modal opened ─
   useEffect(() => {
     if (!isRunning || isModalOpen) {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -45,6 +56,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
     timerRef.current = setInterval(() => {
       setCurrentIndex((p) => (p + 1) % TOTAL);
     }, CARD_ROTATE_INTERVAL);
+
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
@@ -100,18 +112,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 space-y-2.5 px-4"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 mb-4 sm:mb-8"
         >
           <span className="text-[#da8a24] font-extrabold text-xs sm:text-sm uppercase tracking-widest block">
-            Field Gallery
+            Field Gallery & Real Stories
           </span>
           <h2 className="text-[24px] xs:text-[28px] sm:text-4xl lg:text-[44px] font-extrabold text-[#0a2240] tracking-tight leading-tight">
             Authentic Moments of Hope & Dignity
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-            Cards rotate continuously · Click any card to pause & explore the full story.
+            Continuous auto-rotating gallery · Hover to pause · Click center card to open story details.
           </p>
         </motion.div>
 
@@ -119,10 +131,14 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
         <div
           className="relative w-full flex items-center justify-center py-2 sm:py-6 lg:py-10 min-h-[350px] xs:min-h-[420px] sm:min-h-[540px] md:min-h-[580px] lg:min-h-[640px]"
           style={{ perspective: 1500 }}
+          onMouseEnter={() => setIsRunning(false)}
+          onMouseLeave={() => {
+            if (!isModalOpen) setIsRunning(true);
+          }}
         >
           {/* Left Arrow */}
           <button
-            onClick={() => { setIsRunning(false); goPrev(); }}
+            onClick={() => goPrev()}
             className="absolute left-1 sm:left-4 md:left-7 top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0a2240]/90 hover:bg-[#da8a24] text-white hover:text-[#0a2240] border border-[#da8a24]/50 shadow-xl flex items-center justify-center transition-all cursor-pointer active:scale-95"
             aria-label="Previous"
           >
@@ -131,7 +147,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
 
           {/* Right Arrow */}
           <button
-            onClick={() => { setIsRunning(false); goNext(); }}
+            onClick={() => goNext()}
             className="absolute right-1 sm:right-4 md:right-7 top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#0a2240]/90 hover:bg-[#da8a24] text-white hover:text-[#0a2240] border border-[#da8a24]/50 shadow-xl flex items-center justify-center transition-all cursor-pointer active:scale-95"
             aria-label="Next"
           >
@@ -164,11 +180,8 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                 style={{ zIndex: cfg.zIndex }}
                 onClick={() => {
                   if (!isCenter) {
-                    // Clicking side card: jump to that card (rotation pauses)
-                    setIsRunning(false);
                     setCurrentIndex(itemIdx);
                   } else {
-                    // Clicking center card: pause rotation + open modal
                     setIsRunning(false);
                     setIsModalOpen(true);
                   }
@@ -178,9 +191,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                 <div
                   className={`relative overflow-hidden cursor-pointer group
                     ${isCenter
-                      /* Mobile: 220px · xs: 265px · sm: 360px · md: 400px · lg: 430px */
                       ? 'w-[220px] xs:w-[265px] sm:w-[360px] md:w-[400px] lg:w-[430px] rounded-[28px] border-[2.5px] border-[#da8a24] shadow-2xl shadow-[#da8a24]/25'
-                      /* Side cards — also responsive */
                       : 'w-[180px] sm:w-[230px] md:w-[270px] lg:w-[310px] rounded-[22px] border border-[#163863]/60'
                     }
                   `}
@@ -197,10 +208,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                     draggable={false}
                   />
 
-                  {/* Cinematic gradient overlay — stronger at top & bottom */}
+                  {/* Cinematic gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#061525]/95 via-[#061525]/20 to-[#061525]/55 pointer-events-none" />
 
-                  {/* ── TOP: Category badge + Expand CTA ─── */}
+                  {/* ── TOP: Category badge ─── */}
                   <div className="absolute top-0 left-0 right-0 p-3 sm:p-4 flex items-start justify-between">
                     <span
                       className={`text-[9px] sm:text-[11px] font-black uppercase tracking-widest px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-full flex items-center gap-1 sm:gap-1.5 shadow-md
@@ -212,48 +223,23 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                       <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       {item.category}
                     </span>
-
-                    {isCenter && (
-                      <motion.button
-                        whileHover={{ rotate: 45, scale: 1.15 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                        onClick={(e) => { e.stopPropagation(); setIsRunning(false); setIsModalOpen(true); }}
-                        className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] flex items-center justify-center shadow-lg cursor-pointer"
-                        aria-label="Open full story"
-                      >
-                        <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2.8} />
-                      </motion.button>
-                    )}
                   </div>
 
-                  {/* ── BOTTOM: Title + stat + description ─── */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 space-y-1 sm:space-y-1.5">
-                    {/* Title */}
+                  {/* ── BOTTOM: Title & Location ─── */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 space-y-1.5 text-white">
+                    <div className="flex items-center gap-1 text-[10px] sm:text-xs text-[#da8a24] font-bold">
+                      <MapPin className="w-3 h-3 shrink-0" />
+                      <span>{item.location}</span>
+                    </div>
                     <h3
-                      className={`font-extrabold text-white uppercase tracking-wide leading-snug line-clamp-2
-                        ${isCenter
-                          ? 'text-[11px] xs:text-xs sm:text-sm lg:text-base'
-                          : 'text-[9px] sm:text-[10px] md:text-xs'
-                        }
-                      `}
+                      className={`font-black tracking-tight leading-tight drop-shadow-md transition-colors ${
+                        isCenter
+                          ? 'text-sm sm:text-lg lg:text-xl text-white group-hover:text-[#da8a24]'
+                          : 'text-xs sm:text-sm text-slate-200 line-clamp-1'
+                      }`}
                     >
                       {item.title}
                     </h3>
-
-                    {/* Impact stat — center only */}
-                    {isCenter && item.impactStat && (
-                      <span className="inline-flex items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[11px] font-black bg-[#da8a24]/20 border border-[#da8a24]/50 text-[#da8a24] px-2 sm:px-3 py-0.5 sm:py-1 rounded-full backdrop-blur-sm">
-                        <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
-                        {item.impactStat.label}: {item.impactStat.value}
-                      </span>
-                    )}
-
-                    {/* Short description — center only, 2 lines max */}
-                    {isCenter && (
-                      <p className="text-slate-300 text-[9px] xs:text-[10px] sm:text-[11px] leading-relaxed line-clamp-2 font-normal">
-                        {item.description}
-                      </p>
-                    )}
                   </div>
                 </div>
               </motion.div>
@@ -261,12 +247,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
           })}
         </div>
 
-        {/* ── Pagination bar — clearly below cards with safe margin ── */}
-        <div className="flex items-center justify-center gap-1 mt-10 relative z-20">
+        {/* ── Bottom Carousel Indicator Dots ── */}
+        <div className="flex items-center justify-center gap-2 pt-2 pb-4">
           {GALLERY_ITEMS.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => { setIsRunning(false); setCurrentIndex(idx); }}
+              onClick={() => setCurrentIndex(idx)}
               className={`rounded-full transition-all duration-500 cursor-pointer ${
                 idx === currentIndex
                   ? 'w-5 h-1.5 bg-[#da8a24] shadow-sm'
@@ -277,15 +263,18 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
           ))}
         </div>
 
-        {/* ── Full Story Modal ─────────────────────────────────── */}
-        <AnimatePresence>
-          {isModalOpen && activeItem && (
+        {/* ── Full Story Modal (Portaled to document.body with Body Scroll Lock & Opaque Dark Overlay) ── */}
+        {isModalOpen && activeItem && createPortal(
+          <AnimatePresence>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-[#0a2240]/92 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 lg:p-8 overflow-y-auto"
-              onClick={() => setIsModalOpen(false)}
+              className="fixed inset-0 z-[99999] bg-[#040f1a]/98 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-6 lg:p-8 overflow-hidden"
+              onClick={() => {
+                setIsModalOpen(false);
+                setIsRunning(true);
+              }}
             >
               <motion.div
                 initial={{ scale: 0.88, opacity: 0, y: 24 }}
@@ -297,7 +286,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
               >
                 {/* High-visibility Prominent Close button */}
                 <button
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setIsRunning(true);
+                  }}
                   className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-50 bg-[#da8a24] text-[#0a2240] hover:bg-rose-600 hover:text-white p-2.5 sm:p-3 rounded-full border-2 border-white shadow-2xl transition-all transform hover:scale-110 active:scale-95 cursor-pointer flex items-center justify-center"
                   aria-label="Close modal"
                 >
@@ -359,6 +351,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                       onClick={() => {
                         pixelTracker.trackDonateClick(500, `Gallery: ${activeItem.title}`);
                         setIsModalOpen(false);
+                        setIsRunning(true);
                         if (onOpenDonateModal) onOpenDonateModal(500);
                       }}
                       className="w-full bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black px-6 py-3.5 rounded-2xl shadow-xl transition flex items-center justify-center gap-2 cursor-pointer text-xs sm:text-sm uppercase tracking-wider"
@@ -370,8 +363,9 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                 </div>
               </motion.div>
             </motion.div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>,
+          document.body
+        )}
 
       </div>
     </section>

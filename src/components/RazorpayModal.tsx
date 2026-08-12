@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, ShieldCheck, Heart, Sparkles, CheckCircle2, QrCode, CreditCard, Building, Wallet, ArrowRight, Download, Printer, Lock, RefreshCw, Calendar, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { Campaign, DonorDetails } from '../types';
@@ -18,6 +19,13 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
   campaign,
   onClose
 }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1); // 1: Amount, 2: Details, 3: Razorpay Gateway, 4: Processing, 5: Success Receipt
   const [amount, setAmount] = useState<number>(initialAmount || 500);
   const [frequency, setFrequency] = useState<'One-time' | 'Monthly'>(initialFrequency);
@@ -89,9 +97,9 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
     }, 2500);
   };
 
-  return (
-    <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
-      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 relative my-auto animate-in zoom-in-95 duration-200 overflow-hidden">
+  return createPortal(
+    <div className="fixed inset-0 z-[99999] bg-[#040f1a]/98 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden" onClick={onClose}>
+      <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 relative my-auto animate-in zoom-in-95 duration-200 overflow-hidden text-slate-900" onClick={(e) => e.stopPropagation()}>
         
         {/* Header Bar */}
         <div className="bg-blue-900 text-white p-5 sm:p-6 flex items-center justify-between border-b border-blue-800 shrink-0">
@@ -534,7 +542,8 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
         )}
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
