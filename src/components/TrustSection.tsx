@@ -55,7 +55,7 @@ export const TrustSection: React.FC = () => {
                 Why Donors Trust <br className="hidden sm:inline" />
                 <span className="text-[#da8a24]">Truth Foundation</span>
               </h2>
-              <p className="text-slate-300 text-xs sm:text-base font-light leading-relaxed max-w-2xl">
+              <p className="text-slate-300 text-sm sm:text-lg lg:text-[20px] font-light leading-relaxed max-w-2xl">
                 We hold ourselves to the highest standards of governance, financial clarity, and operational accountability for every donation received.
               </p>
             </div>
@@ -71,16 +71,13 @@ export const TrustSection: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.15 }}
                     transition={{ duration: 0.4, delay: idx * 0.1 }}
-                    className="flex items-start gap-3.5 group"
+                    className="flex items-center gap-3.5 group"
                   >
-                    <Icon className="w-6 h-6 text-[#da8a24] shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300" />
-                    <div className="space-y-1">
+                    <Icon className="w-6 h-6 text-[#da8a24] shrink-0 group-hover:scale-110 transition-transform duration-300" />
+                    <div>
                       <h3 className="text-base sm:text-lg font-extrabold text-white group-hover:text-[#da8a24] transition-colors leading-snug">
                         {pillar.title}
                       </h3>
-                      <p className="text-slate-300 text-xs leading-relaxed font-normal">
-                        {pillar.description}
-                      </p>
                     </div>
                   </motion.div>
                 );
