@@ -93,7 +93,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
           <h2 className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[48px] font-extrabold text-[#0a2240] tracking-tight leading-tight">
             Transforming Lives, One Plate at a Time
           </h2>
-          <p className="text-xs sm:text-base text-slate-600 leading-relaxed font-light">
+          <p className="text-sm sm:text-lg lg:text-[20px] text-slate-600 leading-relaxed font-light">
             Your small contribution creates a massive ripple effect in the life of a child. Here is how your ₹100 turns into health, dignity, and education.
           </p>
         </motion.div>
@@ -122,7 +122,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
                   className={`w-[85vw] max-w-[310px] sm:w-[330px] lg:w-[360px] shrink-0 snap-center rounded-3xl p-7 sm:p-8 transition-all duration-300 transform-gpu cursor-pointer flex flex-col items-center text-center relative border group ${
                     isActive
                       ? 'scale-100 sm:scale-105 bg-white/95 backdrop-blur-md border-[#da8a24] shadow-xl z-20 opacity-100 ring-4 ring-[#da8a24]/20'
-                      : 'scale-95 bg-white backdrop-blur-sm border-slate-200/90 shadow-sm opacity-90 hover:opacity-100 hover:shadow-lg z-10'
+                      : 'scale-95 bg-white border-slate-200/90 shadow-sm opacity-100 hover:shadow-lg z-10'
                   }`}
                 >
                   {/* Top Centered Circular Icon Badge (Reference Design Inspired) */}
@@ -140,7 +140,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
                   </h3>
 
                   {/* Card Description Centered */}
-                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal text-center">
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal text-center">
                     {card.description}
                   </p>
                 </motion.div>
