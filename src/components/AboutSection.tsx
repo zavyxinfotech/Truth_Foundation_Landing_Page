@@ -86,8 +86,8 @@ export const AboutSection: React.FC = () => {
             <span className="text-[#da8a24]">TRUTH FOUNDATION</span> (Public Charitable Trust)
           </h2>
 
-          <p className="text-xs sm:text-base text-slate-300 leading-relaxed font-light">
-            Launched on <strong className="text-white font-extrabold">5th July 2010</strong>, Truth Foundation works to create a new social order by educating marginalized rural women, men, children, and youth of Dalit and Tribal communities on their rights. We foster skills, talent growth, and liberation from oppressive forces through social justice, equality, truth, freedom, and dignity.
+          <p className="text-sm sm:text-lg lg:text-[20px] text-slate-300 leading-relaxed font-light">
+            Launched on <strong className="text-white font-extrabold">5th July 2010</strong>, Truth Foundation empowers marginalized rural communities through education, skills development, and advocacy for social justice, equality, and dignity.
           </p>
         </motion.div>
 
