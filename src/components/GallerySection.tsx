@@ -122,9 +122,6 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
           <h2 className="text-[24px] xs:text-[28px] sm:text-4xl lg:text-[44px] font-extrabold text-[#0a2240] tracking-tight leading-tight">
             Authentic Moments of Hope & Dignity
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-            Continuous auto-rotating gallery · Hover to pause · Click center card to open story details.
-          </p>
         </motion.div>
 
         {/* ── 5-Card Cinematic 3D Rotating Stage ──────────────────── */}
