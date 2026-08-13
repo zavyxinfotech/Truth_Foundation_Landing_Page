@@ -127,7 +127,7 @@ export const AboutSection: React.FC = () => {
                       {feature.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
                       {feature.description}
                     </p>
                   </div>

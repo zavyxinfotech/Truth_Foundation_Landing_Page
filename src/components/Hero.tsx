@@ -176,7 +176,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
                 </span>
               </h1>
 
-              <p className="text-xs xs:text-sm sm:text-base lg:text-[18px] text-blue-100 max-w-2xl leading-relaxed font-normal drop-shadow-md">
+              <p className="text-sm xs:text-base sm:text-lg lg:text-[22px] text-blue-100 max-w-2xl leading-relaxed font-normal drop-shadow-md">
                 {heroSlides[currentSlide].subtitle}
               </p>
             </motion.div>

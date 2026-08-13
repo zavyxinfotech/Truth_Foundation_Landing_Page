@@ -140,7 +140,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
                   </h3>
 
                   {/* Card Description Centered */}
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal text-center">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-normal text-center">
                     {card.description}
                   </p>
                 </motion.div>
