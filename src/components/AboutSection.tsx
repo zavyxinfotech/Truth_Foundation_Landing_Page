@@ -127,7 +127,7 @@ export const AboutSection: React.FC = () => {
                       {feature.title}
                     </h3>
 
-                    <p className="text-base sm:text-lg text-slate-200 group-hover:text-white leading-relaxed font-medium">
+                    <p className="text-base sm:text-md text-slate-200 group-hover:text-white leading-relaxed font-small">
                       {feature.description}
                     </p>
                   </div>

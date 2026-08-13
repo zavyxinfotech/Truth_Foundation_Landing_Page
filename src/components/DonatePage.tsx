@@ -80,9 +80,11 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
           <button
             type="button"
             onClick={handleLogoClick}
-            className="text-xs sm:text-sm font-bold text-[#0a2240] hover:text-[#da8a24] transition cursor-pointer"
+            className="text-xl sm:text-sm font-bold text-[#0a2240] hover:text-[#da8a24] transition cursor-pointer bg-transparent flex items-center"
+            aria-label="Back to Home"
           >
-            ← Back to Home
+            <span className="sm:hidden">←</span>
+            <span className="hidden sm:inline">← Back to Home</span>
           </button>
 
         </div>
@@ -306,7 +308,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
 
       {/* Simple minimal footer for Donate page */}
       <footer className="py-6 border-t border-amber-200/50 text-center text-xs text-slate-500 font-medium">
-        © {new Date().getFullYear()} Truth Foundation • Registered NGO. All rights reserved. Developed with ❤️ by{' '}
+        © {new Date().getFullYear()} Truth Foundation • Registered NGO. Developed with ❤️ by{' '}
         <a
           href="https://zavyx.odoo.com/"
           target="_blank"

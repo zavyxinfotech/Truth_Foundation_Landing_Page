@@ -79,7 +79,7 @@ export const TestimonialsSection: React.FC = () => {
           <h2 className="text-[22px] xs:text-[26px] sm:text-3xl lg:text-[42px] font-extrabold text-blue-950 tracking-tight leading-tight">
             Hear From Our Donors & Volunteers
           </h2>
-          <p className="text-slate-600 text-xs sm:text-base font-light leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-lg lg:text-[20px] font-light leading-relaxed">
             Read authentic feedback from individuals, teachers, and volunteers who have experienced the impact firsthand.
           </p>
         </motion.div>

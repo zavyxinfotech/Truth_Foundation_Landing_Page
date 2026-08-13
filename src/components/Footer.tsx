@@ -197,7 +197,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
         {/* Bottom Copyright Bar */}
         <div className="mt-10 pt-6 pb-20 sm:pb-6 border-t border-slate-200/90 flex flex-col items-center gap-3 text-center text-xs text-slate-600 font-medium sm:flex-row sm:justify-between sm:text-left">
           <div>
-            © {new Date().getFullYear()} Truth Foundation. Developed with ❤️ by{' '}
+            © {new Date().getFullYear()} Truth Foundation • Registered NGO. Developed with ❤️ by{' '}
             <a
               href="https://zavyx.odoo.com/"
               target="_blank"
