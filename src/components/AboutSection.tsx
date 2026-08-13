@@ -113,7 +113,7 @@ export const AboutSection: React.FC = () => {
                   className={`w-[82vw] max-w-[280px] sm:w-[310px] lg:w-full lg:max-w-none shrink-0 lg:shrink snap-center rounded-3xl p-6 sm:p-7 bg-[#071b34] backdrop-blur-md border transition-all duration-500 transform-gpu cursor-pointer space-y-4 flex flex-col justify-between group ${
                     isActive
                       ? 'scale-105 lg:scale-[1.02] border-[#da8a24] shadow-2xl z-20 ring-4 ring-[#da8a24]/20 [transform:rotateY(0deg)_translateZ(20px)]'
-                      : 'border-[#163863]/80 opacity-85 hover:opacity-100 hover:border-[#da8a24]/90 z-10 [transform:rotateY(0deg)] lg:hover:scale-[1.02]'
+                      : 'border-[#163863]/80 opacity-100 hover:border-[#da8a24]/90 z-10 [transform:rotateY(0deg)] lg:hover:scale-[1.02]'
                   }`}
                 >
                   <div className="space-y-3">
@@ -123,11 +123,11 @@ export const AboutSection: React.FC = () => {
                       <feature.icon className="w-6 h-6" />
                     </div>
 
-                    <h3 className="font-extrabold text-white text-base sm:text-lg tracking-tight group-hover:text-[#da8a24] transition-colors leading-snug">
+                    <h3 className="font-extrabold text-white text-lg sm:text-xl lg:text-2xl tracking-tight group-hover:text-[#da8a24] transition-colors leading-snug">
                       {feature.title}
                     </h3>
 
-                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+                    <p className="text-base sm:text-lg text-slate-200 group-hover:text-white leading-relaxed font-medium">
                       {feature.description}
                     </p>
                   </div>
