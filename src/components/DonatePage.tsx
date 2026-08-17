@@ -98,8 +98,8 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
         {/* 2-Column Grid Layout */}
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
           
-          {/* Left Section (7 Columns Desktop): Amount Selection & Donor Info */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+          {/* Left Section (6 Columns Desktop): Amount Selection & Donor Info */}
+          <div className="lg:col-span-6 space-y-6 sm:space-y-8">
             
             {/* Amount Selection */}
             <div className="space-y-3 sm:space-y-4">
@@ -152,32 +152,33 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
               </div>
             </div>
 
-            {/* Emotional Painted Image Section (Brush Mask) */}
+            {/* Emotional Painted Image Section (Brush Mask via Blend Modes) */}
             <div className="w-full flex justify-center mt-6 sm:mt-10">
               <div
                 className="relative w-full max-w-lg aspect-[5/4] sm:aspect-video"
-                style={{
-                  maskImage: `url('/assets/brush_mask.png')`,
-                  WebkitMaskImage: `url('/assets/brush_mask.png')`,
-                  maskSize: 'contain',
-                  WebkitMaskSize: 'contain',
-                  maskRepeat: 'no-repeat',
-                  WebkitMaskRepeat: 'no-repeat',
-                  maskPosition: 'center',
-                  WebkitMaskPosition: 'center',
-                }}
+                style={{ mixBlendMode: 'multiply' }}
               >
                 <img
                   src="/assets/sad_child_painting.jpg"
                   alt="Emotional painting of a child receiving care"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
+                <div 
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: `url('/assets/brush_mask.png')`,
+                    backgroundSize: '100% 100%',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    mixBlendMode: 'lighten'
+                  }}
+                ></div>
               </div>
             </div>
           </div>
 
-          {/* Right Section (5 Columns Desktop): Summary Card, Payment Methods & Submit Button */}
-          <div className="lg:col-span-5 space-y-6 bg-white p-5 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
+          {/* Right Section (6 Columns Desktop): Summary Card, Payment Methods & Submit Button */}
+          <div className="lg:col-span-6 space-y-6 bg-white p-5 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
             
             {/* SELECTED CONTRIBUTION Box */}
             <div className="bg-slate-50 border border-slate-200/80 p-4.5 rounded-2xl flex items-center justify-between">
