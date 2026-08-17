@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="relative shrink-0"
             >
               {/* Outer gold glow ring */}
-              <div className="absolute -inset-1 rounded-full bg-[#da8a24]/30 blur-sm group-hover:bg-[#da8a24]/50 transition-all duration-300" />
+              <div className="absolute -inset-1 rounded-full bg-[#da8a24]/60 blur-sm group-hover:bg-[#da8a24]/50 transition-all duration-300" />
               <img
                 src={truthLogo}
                 alt="Truth Foundation Logo"
@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({
                 TRUTH FOUNDATION
               </span>
               <div className="flex items-center gap-1.5 pt-0.5">
-                <p className="text-[8px] xs:text-[10px] sm:text-xs lg:text-[13px] font-bold text-[#da8a24] uppercase tracking-widest whitespace-nowrap">
+                <p className="text-[8px] xs:text-[10px] sm:text-xs lg:text-[13px] font-bold text-[#ffffff] uppercase tracking-widest whitespace-nowrap">
                   Registered NGO &bull; Chennai, India
                 </p>
               </div>

@@ -76,16 +76,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
             </div>
           </a>
 
-          {/* Right side back to home link */}
-          <button
-            type="button"
-            onClick={handleLogoClick}
-            className="text-xl sm:text-sm font-bold text-[#0a2240] hover:text-[#da8a24] transition cursor-pointer bg-transparent flex items-center"
-            aria-label="Back to Home"
-          >
-            <span className="sm:hidden">←</span>
-            <span className="hidden sm:inline">← Back to Home</span>
-          </button>
+          {/* Removed right side back to home link */}
 
         </div>
       </header>
@@ -161,6 +152,43 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
               </div>
             </div>
 
+            {/* Emotional Painted Image Section (Brush Mask) */}
+            <div className="w-full flex justify-center mt-6 sm:mt-10">
+              <div
+                className="relative w-full max-w-lg aspect-[5/4] sm:aspect-video"
+                style={{
+                  maskImage: `url('/assets/brush_mask.png')`,
+                  WebkitMaskImage: `url('/assets/brush_mask.png')`,
+                  maskSize: 'contain',
+                  WebkitMaskSize: 'contain',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskPosition: 'center',
+                  WebkitMaskPosition: 'center',
+                }}
+              >
+                <img
+                  src="/assets/sad_child_painting.jpg"
+                  alt="Emotional painting of a child receiving care"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-in-out"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Section (5 Columns Desktop): Summary Card, Payment Methods & Submit Button */}
+          <div className="lg:col-span-5 space-y-6 bg-white p-5 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
+            
+            {/* SELECTED CONTRIBUTION Box */}
+            <div className="bg-slate-50 border border-slate-200/80 p-4.5 rounded-2xl flex items-center justify-between">
+              <span className="text-[11px] uppercase font-black text-slate-500 tracking-wider">
+                SELECTED CONTRIBUTION
+              </span>
+              <div className="text-2xl sm:text-3xl font-black text-[#0a2240]">
+                ₹{activeAmount.toLocaleString()}
+              </div>
+            </div>
+
             {/* Donor Information Form */}
             <div className="pt-4 border-t border-slate-200/80 space-y-4">
               <h2 className="text-lg sm:text-xl font-black text-[#0a2240] tracking-tight">
@@ -206,91 +234,6 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
               </div>
             </div>
 
-          </div>
-
-          {/* Right Section (5 Columns Desktop): Summary Card, Payment Methods & Submit Button */}
-          <div className="lg:col-span-5 space-y-6 bg-white p-5 sm:p-8 rounded-3xl border border-slate-200/90 shadow-md lg:sticky lg:top-24">
-            
-            {/* SELECTED CONTRIBUTION Box */}
-            <div className="bg-slate-50 border border-slate-200/80 p-4.5 rounded-2xl flex items-center justify-between">
-              <span className="text-[11px] uppercase font-black text-slate-500 tracking-wider">
-                SELECTED CONTRIBUTION
-              </span>
-              <div className="text-2xl sm:text-3xl font-black text-[#0a2240]">
-                ₹{activeAmount.toLocaleString()}
-              </div>
-            </div>
-
-            {/* Select Payment Method */}
-            <div className="space-y-3">
-              <h3 className="text-base font-black text-[#0a2240] tracking-tight">
-                Select Payment Method
-              </h3>
-
-              {/* Responsive Payment Method Tabs (grid-cols-2 on mobile, grid-cols-4 on sm+) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 bg-slate-100 p-1.5 rounded-2xl text-xs font-extrabold text-slate-700">
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('UPI')}
-                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
-                    paymentMethod === 'UPI' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
-                  }`}
-                >
-                  <QrCode className="w-4 h-4 text-indigo-600 shrink-0" />
-                  <span>UPI</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('Card')}
-                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
-                    paymentMethod === 'Card' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
-                  }`}
-                >
-                  <CreditCard className="w-4 h-4 text-indigo-600 shrink-0" />
-                  <span>Card</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('NetBank')}
-                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
-                    paymentMethod === 'NetBank' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
-                  }`}
-                >
-                  <Building className="w-4 h-4 text-indigo-600 shrink-0" />
-                  <span>NetBank</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('Wallet')}
-                  className={`py-2.5 px-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-xs font-extrabold ${
-                    paymentMethod === 'Wallet' ? 'bg-white text-[#0a2240] shadow-2xs font-black ring-1 ring-slate-200' : 'hover:bg-slate-200/60'
-                  }`}
-                >
-                  <Wallet className="w-4 h-4 text-indigo-600 shrink-0" />
-                  <span>Wallet</span>
-                </button>
-              </div>
-
-              {/* UPI Sub-Options Grid matching Reference Screenshot */}
-              {paymentMethod === 'UPI' && (
-                <div className="grid grid-cols-2 gap-2.5 pt-1">
-                  {upiOptions.map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setSelectedUpiOption(option)}
-                      className={`py-3 px-3 rounded-2xl text-xs font-bold border transition-all cursor-pointer text-center ${
-                        selectedUpiOption === option
-                          ? 'border-[#da8a24] bg-amber-50/80 text-[#0a2240] ring-2 ring-[#da8a24]/20 font-extrabold'
-                          : 'border-slate-200/90 text-slate-700 hover:bg-slate-50'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
 
             {/* Primary Submit Button matching Reference Screenshot */}
             <button
