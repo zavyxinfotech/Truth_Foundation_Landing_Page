@@ -211,7 +211,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: 'Vedesh Vedesh',
     role: 'Donor',
     location: 'Chennai',
-    avatar: 'https://images.unsplash.com/photo-1595968567115-32120e3f8489?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://ui-avatars.com/api/?name=Vedesh+Vedesh&background=f59e0b&color=fff&size=150',
     comment: 'On my birthday I spent time with these God childrens..Very happy to see this children\'s.. good place and good response..',
     rating: 5,
     date: '4 years ago',
