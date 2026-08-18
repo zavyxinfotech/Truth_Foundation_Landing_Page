@@ -41,11 +41,10 @@ class PixelTracker {
     this.history.unshift(metaEvent);
     if (this.history.length > 50) this.history.pop();
 
-    // Trigger window events if Meta Pixel script exists or console log
+    // Trigger window events if Meta Pixel script exists
     if (typeof window !== 'undefined') {
       (window as any).fbq?.('track', eventName, payload);
       (window as any).gtag?.('event', eventName, payload);
-      console.log(`[Meta Pixel / GA4 Tracked]: ${eventName}`, payload);
     }
 
     this.listeners.forEach(listener => listener(metaEvent));
