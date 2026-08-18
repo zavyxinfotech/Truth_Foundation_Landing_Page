@@ -70,7 +70,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
               <span className="text-sm xs:text-base sm:text-xl lg:text-2xl font-black text-[#0a2240] tracking-tight leading-none block group-hover:text-[#da8a24] transition-colors">
                 TRUTH FOUNDATION
               </span>
-              <p className="text-[8px] xs:text-[9.5px] sm:text-[10.5px] font-extrabold text-[#da8a24] uppercase tracking-wider block pt-0.5">
+              <p className="text-[8px] xs:text-[9.5px] sm:text-[10.5px] font-extrabold text-[#0a2240] uppercase tracking-wider block pt-0.5">
                 REGISTERED NGO • CHENNAI
               </p>
             </div>
