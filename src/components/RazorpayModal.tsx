@@ -4,7 +4,7 @@ import { X, ShieldCheck, Heart, Sparkles, CheckCircle2, QrCode, CreditCard, Buil
 import confetti from 'canvas-confetti';
 import { Campaign, DonorDetails } from '../types';
 import { pixelTracker } from '../utils/pixelTracker';
-import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
+import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?w=128&format=webp';
 
 interface RazorpayModalProps {
   initialAmount: number;
@@ -107,6 +107,8 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
             <img
               src={truthLogo}
               alt="Truth Foundation Logo"
+              width={128}
+              height={128}
               className="w-10 h-10 rounded-full object-cover border border-amber-400 bg-white shrink-0"
             />
             <div>

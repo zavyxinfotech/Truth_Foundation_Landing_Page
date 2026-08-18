@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { GALLERY_ITEMS } from '../data/campaignData';
 import { pixelTracker } from '../utils/pixelTracker';
+import { Picture } from './Picture';
 
 interface GallerySectionProps {
   onOpenDonateModal?: (amount: number) => void;
@@ -195,15 +196,11 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
                   style={{ aspectRatio: '3/4' }}
                 >
                   {/* Full-card background image */}
-                  <img
-                    src={item.imageUrl}
+                  <Picture
+                    picture={item.image}
+                    sizes="(min-width: 1024px) 430px, (min-width: 768px) 400px, (min-width: 640px) 360px, 265px"
                     alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    width="800"
-                    height="1066"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
-                    referrerPolicy="no-referrer"
                     draggable={false}
                   />
 
@@ -297,13 +294,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
 
                 {/* Left Column (Desktop) / Top Section (Mobile): Image */}
                 <div className="lg:col-span-5 relative bg-[#06172a] p-3 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-[#163863] min-h-[200px] lg:min-h-[420px] max-h-[35vh] lg:max-h-[85vh] overflow-hidden shrink-0">
-                  <img
-                    src={activeItem.imageUrl}
+                  <Picture
+                    picture={activeItem.image}
+                    sizes="(min-width: 1024px) 420px, calc(100vw - 2rem)"
                     alt={activeItem.title}
-                    loading="lazy"
-                    decoding="async"
+                    loading="eager"
                     className="w-full h-full max-h-[32vh] lg:max-h-[75vh] object-cover lg:object-cover rounded-2xl shadow-xl"
-                    referrerPolicy="no-referrer"
                   />
                 </div>
 

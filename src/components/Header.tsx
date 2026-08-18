@@ -3,7 +3,7 @@ import { Heart } from 'lucide-react';
 import { motion } from 'motion/react';
 import { pixelTracker } from '../utils/pixelTracker';
 import { WhatsAppIcon } from './WhatsAppIcon';
-import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
+import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?w=128&format=webp';
 
 interface HeaderProps {
   onOpenDonateModal: (amount?: number) => void;
@@ -56,6 +56,9 @@ export const Header: React.FC<HeaderProps> = ({
               <img
                 src={truthLogo}
                 alt="Truth Foundation Logo"
+                width={128}
+                height={128}
+                fetchPriority="high"
                 className="relative w-10 h-10 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-full object-cover border-2 border-[#da8a24] shadow-lg shrink-0"
               />
             </motion.div>

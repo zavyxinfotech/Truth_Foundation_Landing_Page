@@ -147,6 +147,10 @@ export const TestimonialsSection: React.FC = () => {
                     <img
                       src={testimonial.avatar}
                       alt={testimonial.name}
+                      width={96}
+                      height={96}
+                      loading="lazy"
+                      decoding="async"
                       className="w-9 h-9 sm:w-11 sm:h-11 rounded-full object-cover border-2 border-[#da8a24] shrink-0 shadow-sm"
                       referrerPolicy="no-referrer"
                     />

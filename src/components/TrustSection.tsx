@@ -1,7 +1,8 @@
 import React from 'react';
 import { ShieldCheck, FileCheck, Users, MessageSquareCode, Lock, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
-import trustSectionOrganicMeal from '../assets/images/trust_section_organic_meal.jpg';
+import { Picture } from './Picture';
+import trustSectionOrganicMeal from '../assets/images/trust_section_organic_meal.jpg?w=480;800&format=webp;jpg&as=picture';
 
 export const TrustSection: React.FC = () => {
   const trustPillars = [
@@ -104,15 +105,11 @@ export const TrustSection: React.FC = () => {
 
             {/* Organic Curved SVG Blob Frame */}
             <div className="relative w-full aspect-[4/3] rounded-[45%_55%_65%_35%/50%_60%_40%_50%] overflow-hidden border-4 border-[#da8a24]/60 shadow-2xl shadow-amber-400/10 group transform hover:scale-[1.02] transition-all duration-500 bg-[#071b34]">
-              <img
-                src={trustSectionOrganicMeal}
+              <Picture
+                picture={trustSectionOrganicMeal}
+                sizes="(min-width: 1024px) 500px, calc(100vw - 2rem)"
                 alt="Truth Foundation Volunteer Serving Meals to Children"
-                loading="lazy"
-                decoding="async"
-                width="800"
-                height="600"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a2240]/40 via-transparent to-transparent pointer-events-none" />
             </div>

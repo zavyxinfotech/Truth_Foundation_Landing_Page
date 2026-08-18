@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { MapPin, Facebook, Instagram, Linkedin, X, PhoneCall, ExternalLink } from 'lucide-react';
-import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
+import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?w=128&format=webp';
 
 export interface FooterProps {
   onNavigateHome?: (anchor?: string) => void;
@@ -50,6 +50,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
               <img
                 src={truthLogo}
                 alt="Truth Foundation Logo"
+                width={128}
+                height={128}
                 loading="lazy"
                 decoding="async"
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-[#da8a24] bg-white shrink-0 shadow-sm"

@@ -1,17 +1,17 @@
 import { Campaign, DonationOption, FAQItem, GalleryItem, MonthlyGivingOptions, Testimonial } from '../types';
-import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg';
-import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg';
-import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg';
-import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg';
-import elderlyFoodCareDrive from '../assets/images/elderly_food_care_drive.jpg';
+import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg?w=800&format=webp';
+import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg?w=800&format=webp';
+import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg?w=800&format=webp';
+import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg?w=800&format=webp';
+import elderlyFoodCareDrive from '../assets/images/elderly_food_care_drive.jpg?w=800&format=webp';
 
-import HealthCampsImg from '../assets/images/img293.jpg';
-import covidCampsImg from '../assets/images/img299.jpg';
-import servingMealsImg from '../assets/images/img155.jpg';
-import culturalFestivalImg from '../assets/images/img191.jpg';
-import schoolKitsImg from '../assets/images/img125.jpg';
-import happyChildrenMealsImg from '../assets/images/img71.jpg';
-import sandhiyaAvatar from '../assets/images/sandhiya_avatar.jpg';
+import HealthCampsImg from '../assets/images/img293.jpg?w=400;800&format=webp;jpg&as=picture';
+import covidCampsImg from '../assets/images/img299.jpg?w=400;800&format=webp;jpg&as=picture';
+import servingMealsImg from '../assets/images/img155.jpg?w=400;800&format=webp;jpg&as=picture';
+import culturalFestivalImg from '../assets/images/img191.jpg?w=400;800&format=webp;jpg&as=picture';
+import schoolKitsImg from '../assets/images/img125.jpg?w=400;800&format=webp;jpg&as=picture';
+import happyChildrenMealsImg from '../assets/images/img71.jpg?w=400;800&format=webp;jpg&as=picture';
+import sandhiyaAvatar from '../assets/images/sandhiya_avatar.jpg?w=96&format=webp';
 
 export const DEFAULT_MONTHLY_GIVING: MonthlyGivingOptions = {
   enabled: true,
@@ -235,7 +235,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g1',
     title: 'Truth Foundation Orphanage Home Campus',
     category: 'Meals',
-    imageUrl: servingMealsImg,
+    image: servingMealsImg,
     location: 'Redhills, Northern Chennai',
     date: 'Est. 15+ Years (Active)',
     description: 'Dedicated campus on an acre of land providing separate dormitories, study halls, playgrounds, and nutritious dining for 45 boys and girls.',
@@ -250,7 +250,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g3',
     title: 'Special Needs School & Van Transportation',
     category: 'Education',
-    imageUrl: schoolKitsImg,
+    image: schoolKitsImg,
     location: 'China Ikaadu, Thiruvallur District',
     date: 'Ongoing Campus',
     description: 'Tailored special education, physiotherapy, and free door-step van transportation for 23 children with intellectual disabilities.',
@@ -265,7 +265,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g4',
     title: 'Free Evening Tuition & Child Care Centers',
     category: 'Volunteers',
-    imageUrl: happyChildrenMealsImg,
+    image: happyChildrenMealsImg,
     location: 'Vyasarpadi, Surapattu, Perungavoor & 5 Centers',
     date: 'Daily Evening Support',
     description: 'Free evening tuition, wholesome meals, stationery kits, and hygiene supplies for 346 underprivileged children across 8 centers.',
@@ -280,7 +280,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g5',
     title: 'Annual Cultural Festival & Government Dignitaries',
     category: 'Events',
-    imageUrl: culturalFestivalImg,
+    image: culturalFestivalImg,
     location: 'Perungavoor Village, Redhills, Chennai',
     date: 'December 25 (Annual)',
     description: 'Grand cultural program celebrated with community members, state ministers, MPs, MLAs, and TV coverage.',
@@ -295,7 +295,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g6',
     title: 'HIV/AIDS & Rural Health Awareness Drives',
     category: 'Medical',
-    imageUrl: HealthCampsImg,
+    image: HealthCampsImg,
     location: 'Redhills Bypass & Rural Thiruvallur',
     date: 'Weekly Women SHG Meetings',
     description: 'Public health demonstrations, AIDS awareness rallies at Redhills Bypass, medical camps, and environmental sanitation education.',
@@ -310,7 +310,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'g7',
     title: 'COVID-19 Relief Across 4 Districts',
     category: 'Events',
-    imageUrl: covidCampsImg,
+    image: covidCampsImg,
     location: 'Thiruvallur, Kanchipuram, Chengalpattu & Chennai',
     date: '25,000+ People Served',
     description: 'Distributing food packets, dry ration kits, sanitation items, and clothing to blind, elderly, leprosy, gypsy, and transgender communities.',

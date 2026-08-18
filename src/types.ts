@@ -42,7 +42,7 @@ export interface GalleryItem {
   id: string;
   title: string;
   category: 'Meals' | 'Education' | 'Medical' | 'Volunteers' | 'Events' | 'Kitchen' | 'Smiles';
-  imageUrl: string;
+  image: ImagetoolsPicture;
   location: string;
   date: string;
   description: string;

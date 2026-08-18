@@ -2,8 +2,11 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { Heart, QrCode, CreditCard, Building, Wallet, ShieldCheck, Lock, CheckCircle2 } from 'lucide-react';
-import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg';
+import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?w=128&format=webp';
+import sadChildPainting from '../assets/images/sad_child_painting.jpg?w=512;1024&format=webp;jpg&as=picture';
+import brushMask from '../assets/images/brush_mask.png?w=700&format=webp';
 import { pixelTracker } from '../utils/pixelTracker';
+import { Picture } from './Picture';
 
 interface DonatePageProps {
   initialAmount?: number;
@@ -64,6 +67,8 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
             <img
               src={truthLogo}
               alt="Truth Foundation Logo"
+              width={128}
+              height={128}
               className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-[#da8a24] shrink-0 shadow-sm"
             />
             <div className="min-w-0 text-left whitespace-nowrap">
@@ -158,15 +163,16 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
                 className="relative w-full max-w-lg aspect-[5/4] sm:aspect-video"
                 style={{ mixBlendMode: 'multiply' }}
               >
-                <img
-                  src="/assets/sad_child_painting.jpg"
+                <Picture
+                  picture={sadChildPainting}
+                  sizes="(min-width: 640px) 512px, calc(100vw - 2rem)"
                   alt="Emotional painting of a child receiving care"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    backgroundImage: `url('/assets/brush_mask.png')`,
+                    backgroundImage: `url('${brushMask}')`,
                     backgroundSize: '100% 100%',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
