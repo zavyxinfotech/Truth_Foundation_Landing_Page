@@ -89,8 +89,15 @@ export const TestimonialsSection: React.FC = () => {
       <div className="w-full overflow-hidden relative z-10 px-0">
         <div
           ref={scrollContainerRef}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => {
+          onPointerEnter={(e) => { if (e.pointerType === 'mouse') setIsPaused(true); }}
+          onPointerLeave={(e) => {
+            if (e.pointerType === 'mouse') {
+              setIsPaused(false);
+              setActiveCardId(null);
+            }
+          }}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => {
             setIsPaused(false);
             setActiveCardId(null);
           }}
@@ -103,11 +110,12 @@ export const TestimonialsSection: React.FC = () => {
             return (
               <div
                 key={cardUniqueKey}
-                onMouseEnter={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
-                onMouseLeave={handleCardLeave}
-                onClick={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
-                onTouchStart={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
-                onTouchEnd={handleCardLeave}
+                onPointerEnter={(e) => {
+                  if (e.pointerType === 'mouse') handleCardInteract(cardUniqueKey, e.currentTarget);
+                }}
+                onPointerLeave={(e) => {
+                  if (e.pointerType === 'mouse') handleCardLeave();
+                }}
                 className={`w-[260px] xs:w-[295px] sm:w-[340px] md:w-[370px] lg:w-[410px] shrink-0 bg-slate-50/90 backdrop-blur-md border rounded-2xl sm:rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7 shadow-xs transition-all duration-300 flex flex-col justify-between relative space-y-4 cursor-pointer transform-gpu ${
                   isHovered
                     ? 'scale-105 -translate-y-2 shadow-2xl border-[#da8a24] bg-white z-30 ring-4 ring-[#da8a24]/20'
