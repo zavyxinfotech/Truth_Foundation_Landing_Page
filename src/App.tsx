@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { WhyDonate } from './components/WhyDonate';
-import { AboutSection } from './components/AboutSection';
-import { GallerySection } from './components/GallerySection';
-import { TrustSection } from './components/TrustSection';
-import { TestimonialsSection } from './components/TestimonialsSection';
-import { FAQSection } from './components/FAQSection';
-import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { RazorpayModal } from './components/RazorpayModal';
 import { ScrollSection } from './components/ScrollSection';
 import { DarkToLightDivider, LightToDarkDivider } from './components/SectionDividers';
-import { DonatePage } from './components/DonatePage';
 import { CURRENT_CAMPAIGN, FUTURE_CAMPAIGNS } from './data/campaignData';
+
+// Lazy load below-the-fold components to dramatically improve page load time
+const AboutSection = lazy(() => import('./components/AboutSection').then(m => ({ default: m.AboutSection })));
+const GallerySection = lazy(() => import('./components/GallerySection').then(m => ({ default: m.GallerySection })));
+const TrustSection = lazy(() => import('./components/TrustSection').then(m => ({ default: m.TrustSection })));
+const TestimonialsSection = lazy(() => import('./components/TestimonialsSection').then(m => ({ default: m.TestimonialsSection })));
+const FAQSection = lazy(() => import('./components/FAQSection').then(m => ({ default: m.FAQSection })));
+const Footer = lazy(() => import('./components/Footer').then(m => ({ default: m.Footer })));
+const DonatePage = lazy(() => import('./components/DonatePage').then(m => ({ default: m.DonatePage })));
+
+const FallbackLoader = () => <div className="w-full h-32 bg-[#0a2240]"></div>;
 
 export default function App() {
   const [activeCampaignId, setActiveCampaignId] = useState<string>('one-meal-one-smile');
@@ -46,12 +49,14 @@ export default function App() {
 
   if (currentPage === 'donate') {
     return (
-      <DonatePage
-        initialAmount={donateAmount}
-        onClose={() => handleNavigateHome()}
-        onDonateSuccess={() => handleNavigateHome()}
-        onNavigateHome={handleNavigateHome}
-      />
+      <Suspense fallback={<FallbackLoader />}>
+        <DonatePage
+          initialAmount={donateAmount}
+          onClose={() => handleNavigateHome()}
+          onDonateSuccess={() => handleNavigateHome()}
+          onNavigateHome={handleNavigateHome}
+        />
+      </Suspense>
     );
   }
 
@@ -83,48 +88,50 @@ export default function App() {
       {/* Transition: Light WhyDonate -> Dark AboutSection */}
       <LightToDarkDivider bgFrom="#f8fafc" bgTo="#0a2240" />
 
-      {/* About Truth Foundation (Dark #0a2240) */}
-      <ScrollSection id="about">
-        <AboutSection />
-      </ScrollSection>
+      <Suspense fallback={<FallbackLoader />}>
+        {/* About Truth Foundation (Dark #0a2240) */}
+        <ScrollSection id="about">
+          <AboutSection />
+        </ScrollSection>
 
-      {/* Transition: Dark AboutSection -> Light GallerySection */}
-      <DarkToLightDivider bgFrom="#0a2240" bgTo="#ffffff" />
+        {/* Transition: Dark AboutSection -> Light GallerySection */}
+        <DarkToLightDivider bgFrom="#0a2240" bgTo="#ffffff" />
 
-      {/* Field Gallery (Light #ffffff) */}
-      <ScrollSection id="gallery">
-        <GallerySection onOpenDonateModal={handleOpenDonateModal} />
-      </ScrollSection>
+        {/* Field Gallery (Light #ffffff) */}
+        <ScrollSection id="gallery">
+          <GallerySection onOpenDonateModal={handleOpenDonateModal} />
+        </ScrollSection>
 
-      {/* Transition: Light GallerySection -> Dark TrustSection */}
-      <LightToDarkDivider bgFrom="#ffffff" bgTo="#0a2240" />
+        {/* Transition: Light GallerySection -> Dark TrustSection */}
+        <LightToDarkDivider bgFrom="#ffffff" bgTo="#0a2240" />
 
-      {/* Trust & Accreditations Section (Dark #0a2240) */}
-      <ScrollSection id="trust">
-        <TrustSection />
-      </ScrollSection>
+        {/* Trust & Accreditations Section (Dark #0a2240) */}
+        <ScrollSection id="trust">
+          <TrustSection />
+        </ScrollSection>
 
-      {/* Transition: Dark TrustSection -> Light TestimonialsSection */}
-      <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
+        {/* Transition: Dark TrustSection -> Light TestimonialsSection */}
+        <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
 
-      {/* Testimonials (Light #f8fafc) */}
-      <ScrollSection id="testimonials">
-        <TestimonialsSection />
-      </ScrollSection>
+        {/* Testimonials (Light #f8fafc) */}
+        <ScrollSection id="testimonials">
+          <TestimonialsSection />
+        </ScrollSection>
 
-      {/* Transition: Light TestimonialsSection -> Dark FAQSection */}
-      <LightToDarkDivider bgFrom="#f8fafc" bgTo="#0a2240" />
+        {/* Transition: Light TestimonialsSection -> Dark FAQSection */}
+        <LightToDarkDivider bgFrom="#f8fafc" bgTo="#0a2240" />
 
-      {/* FAQ Section (Dark #0a2240) */}
-      <ScrollSection id="faq">
-        <FAQSection onOpenDonateModal={handleOpenDonateModal} />
-      </ScrollSection>
+        {/* FAQ Section (Dark #0a2240) */}
+        <ScrollSection id="faq">
+          <FAQSection onOpenDonateModal={handleOpenDonateModal} />
+        </ScrollSection>
 
-      {/* Transition: Dark FAQSection -> Light Footer */}
-      <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
+        {/* Transition: Dark FAQSection -> Light Footer */}
+        <DarkToLightDivider bgFrom="#0a2240" bgTo="#f8fafc" />
 
-      {/* Footer (Light #f8fafc) */}
-      <Footer onNavigateHome={handleNavigateHome} />
+        {/* Footer (Light #f8fafc) */}
+        <Footer onNavigateHome={handleNavigateHome} />
+      </Suspense>
 
       {/* Floating WhatsApp Widget */}
       <FloatingWhatsApp />
