@@ -133,18 +133,21 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
             <img
               src={heroSlides[currentSlide].url}
               alt={`Truth Foundation NGO - ${heroSlides[currentSlide].title} - ${heroSlides[currentSlide].label}`}
-              loading="eager"
-              fetchPriority="high"
+              loading={currentSlide === 0 ? 'eager' : 'lazy'}
+              fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+              decoding={currentSlide === 0 ? 'sync' : 'async'}
+              width="1920"
+              height="1080"
               className="w-full h-full object-cover object-center"
               referrerPolicy="no-referrer"
             />
           </motion.div>
         </AnimatePresence>
 
-        {/* DOM Image Preloader */}
+        {/* DOM Image Preloader - Only preload subsequent images in background with low priority */}
         <div className="hidden" aria-hidden="true">
-          {heroSlides.map((s, idx) => (
-            <img key={idx} src={s.url} alt="" loading="eager" />
+          {heroSlides.slice(1).map((s, idx) => (
+            <img key={idx} src={s.url} alt="" loading="lazy" decoding="async" fetchPriority="low" />
           ))}
         </div>
 

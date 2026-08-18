@@ -109,6 +109,8 @@ export const TrustSection: React.FC = () => {
                 alt="Truth Foundation Volunteer Serving Meals to Children"
                 loading="lazy"
                 decoding="async"
+                width="800"
+                height="600"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 referrerPolicy="no-referrer"
               />
