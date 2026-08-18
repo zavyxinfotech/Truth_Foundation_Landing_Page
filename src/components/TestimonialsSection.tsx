@@ -105,6 +105,7 @@ export const TestimonialsSection: React.FC = () => {
                 key={cardUniqueKey}
                 onMouseEnter={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
                 onMouseLeave={handleCardLeave}
+                onClick={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
                 onTouchStart={(e) => handleCardInteract(cardUniqueKey, e.currentTarget)}
                 onTouchEnd={handleCardLeave}
                 className={`w-[260px] xs:w-[295px] sm:w-[340px] md:w-[370px] lg:w-[410px] shrink-0 bg-slate-50/90 backdrop-blur-md border rounded-2xl sm:rounded-3xl p-4 xs:p-5 sm:p-6 lg:p-7 shadow-xs transition-all duration-300 flex flex-col justify-between relative space-y-4 cursor-pointer transform-gpu ${
@@ -166,32 +167,6 @@ export const TestimonialsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-4">
-        <div className="flex items-center justify-center gap-3">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => handleScroll('left')}
-            className="p-3 rounded-full bg-slate-100 hover:bg-[#da8a24] hover:text-[#0a2240] text-slate-700 transition-all duration-200 cursor-pointer border border-slate-200 shadow-xs flex items-center justify-center font-bold"
-            aria-label="Scroll Left"
-            title="Previous Reviews"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </motion.button>
-          
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => handleScroll('right')}
-            className="p-3 rounded-full bg-slate-100 hover:bg-[#da8a24] hover:text-[#0a2240] text-slate-700 transition-all duration-200 cursor-pointer border border-slate-200 shadow-xs flex items-center justify-center font-bold"
-            aria-label="Scroll Right"
-            title="Next Reviews"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </motion.button>
-        </div>
-      </div>
     </section>
   );
 };
