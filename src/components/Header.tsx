@@ -61,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
             </motion.div>
 
             <div className="min-w-0 text-left">
-              <span className="text-sm xs:text-base sm:text-2xl lg:text-[26px] font-extrabold text-white tracking-tight leading-none block group-hover:text-[#da8a24] transition-colors whitespace-nowrap drop-shadow-sm">
+              <span className="text-sm xs:text-base sm:text-3xl lg:text-[26px] font-extrabold text-white tracking-tight leading-none block group-hover:text-[#da8a24] transition-colors whitespace-nowrap drop-shadow-sm">
                 TRUTH FOUNDATION
               </span>
               <div className="flex items-center gap-1.5 pt-0.5">

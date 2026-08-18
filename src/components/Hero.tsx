@@ -169,14 +169,14 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
               transition={{ duration: 0.3 }}
               className="space-y-1.5 sm:space-y-3"
             >
-              <h1 className="text-[26px] xs:text-[32px] sm:text-5xl lg:text-[60px] font-extrabold leading-tight tracking-tight text-white drop-shadow-md">
+              <h1 className="text-[32px] xs:text-[38px] sm:text-5xl lg:text-[60px] font-extrabold leading-tight tracking-tight text-white drop-shadow-md">
                 {heroSlides[currentSlide].title}<br />
-                <span className="text-[#da8a24] italic text-base xs:text-lg sm:text-2xl lg:text-3xl font-bold block pt-1 drop-shadow-sm">
+                <span className="text-[#da8a24] italic text-xl xs:text-2xl sm:text-2xl lg:text-3xl font-bold block pt-1 drop-shadow-sm">
                   {heroSlides[currentSlide].tagline}
                 </span>
               </h1>
 
-              <p className="text-sm xs:text-base sm:text-lg lg:text-[22px] text-blue-100 max-w-2xl leading-relaxed font-normal drop-shadow-md">
+              <p className="text-base xs:text-xl sm:text-lg lg:text-[22px] text-blue-100 max-w-2xl leading-relaxed font-normal drop-shadow-md">
                 {heroSlides[currentSlide].subtitle}
               </p>
             </motion.div>

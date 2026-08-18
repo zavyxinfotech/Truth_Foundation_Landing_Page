@@ -88,7 +88,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
           className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2"
         >
           <span className="text-[#da8a24] font-extrabold text-xs sm:text-sm uppercase tracking-widest block">
-            Why Your Donation Matters
+            Make an Impact Today
           </span>
           <h2 className="text-[22px] xs:text-[26px] sm:text-[38px] lg:text-[48px] font-extrabold text-[#0a2240] tracking-tight leading-tight">
             Transforming Lives, One Plate at a Time
@@ -119,10 +119,10 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: false, amount: 0.15 }}
                   transition={{ duration: 0.5, delay: idx * 0.12 }}
-                  className={`w-[85vw] max-w-[310px] sm:w-[330px] lg:w-[360px] shrink-0 snap-center rounded-3xl p-7 sm:p-8 transition-all duration-300 transform-gpu cursor-pointer flex flex-col items-center text-center relative border group ${
+                  className={`w-[85vw] max-w-[310px] sm:w-[330px] lg:w-[360px] shrink-0 snap-center p-4 sm:p-6 transition-all duration-300 transform-gpu cursor-pointer flex flex-col items-center text-center relative group ${
                     isActive
-                      ? 'scale-100 sm:scale-105 bg-white/95 backdrop-blur-md border-[#da8a24] shadow-xl z-20 opacity-100 ring-4 ring-[#da8a24]/20'
-                      : 'scale-95 bg-white border-slate-200/90 shadow-sm opacity-100 hover:shadow-lg z-10'
+                      ? 'scale-100 sm:scale-105 z-20 opacity-100'
+                      : 'scale-95 opacity-80 z-10'
                   }`}
                 >
                   {/* Top Centered Circular Icon Badge (Reference Design Inspired) */}

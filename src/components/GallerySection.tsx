@@ -186,10 +186,10 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onOpenDonateModa
               >
                 {/* ── Card Shell ─────────────────────────────────── */}
                 <div
-                  className={`relative overflow-hidden cursor-pointer group
+                  className={`relative overflow-hidden cursor-pointer group rounded-[12px]
                     ${isCenter
-                      ? 'w-[220px] xs:w-[265px] sm:w-[360px] md:w-[400px] lg:w-[430px] rounded-[28px] border-[2.5px] border-[#da8a24] shadow-2xl shadow-[#da8a24]/25'
-                      : 'w-[180px] sm:w-[230px] md:w-[270px] lg:w-[310px] rounded-[22px] border border-[#163863]/60'
+                      ? 'w-[220px] xs:w-[265px] sm:w-[360px] md:w-[400px] lg:w-[430px]'
+                      : 'w-[180px] sm:w-[230px] md:w-[270px] lg:w-[310px]'
                     }
                   `}
                   style={{ aspectRatio: '3/4' }}
