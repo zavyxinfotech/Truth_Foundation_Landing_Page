@@ -144,13 +144,6 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
           </motion.div>
         </AnimatePresence>
 
-        {/* DOM Image Preloader - Only preload subsequent images in background with low priority */}
-        <div className="hidden" aria-hidden="true">
-          {heroSlides.slice(1).map((s, idx) => (
-            <img key={idx} src={s.url} alt="" loading="lazy" decoding="async" fetchPriority="low" />
-          ))}
-        </div>
-
         {/* Soft, Lightened Gradient Overlays for Vivid Photography & Crystal Clear Text */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a2240]/75 via-[#0a2240]/25 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a2240]/55 via-transparent to-transparent"></div>
