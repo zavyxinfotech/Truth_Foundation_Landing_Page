@@ -11,6 +11,7 @@ import servingMealsImg from '../assets/images/img155.jpg';
 import culturalFestivalImg from '../assets/images/img191.jpg';
 import schoolKitsImg from '../assets/images/img125.jpg';
 import happyChildrenMealsImg from '../assets/images/img71.jpg';
+import sandhiyaAvatar from '../assets/images/sandhiya_avatar.jpg';
 
 export const DEFAULT_MONTHLY_GIVING: MonthlyGivingOptions = {
   enabled: true,
@@ -173,15 +174,15 @@ export const FAQS: FAQItem[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
-    name: 'Ananya Deshmukh',
+    name: 'Sandhiya',
     role: 'Donor',
-    location: 'Mumbai, Maharashtra',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-    comment: 'I donated ₹2,500 on my birthday. Seeing the WhatsApp update with children smiling while receiving hot meals made my day unforgettable. Complete transparency!',
+    location: 'Chennai',
+    avatar: sandhiyaAvatar,
+    comment: 'I have donated one day food for the children\'s and old ages peoples.... They are very happie when they are seeing foods... Im really blessed with these people\'s... Thanks for this opportunity.... Especially meera was so kind and dedicated person... Thank u so much 🙏😌🙏',
     rating: 5,
-    date: '2 days ago',
+    date: '10 months ago',
     verified: true,
-    donatedAmount: '₹2,500'
+    donatedAmount: '1 Day Meals'
   },
   {
     id: 't2',
