@@ -3,10 +3,14 @@ import { Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Campaign } from '../types';
 import { pixelTracker } from '../utils/pixelTracker';
-import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg';
-import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg';
-import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg';
-import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg';
+import { Picture } from './Picture';
+
+import heroChildLongingMeal from '../assets/images/hero_child_longing_meal.jpg?w=640;960;1376&format=webp;jpg&as=picture';
+import heroRedhillsOrphanage from '../assets/images/hero_redhills_orphanage.jpg?w=640;960;1376&format=webp;jpg&as=picture';
+import heroSpecialNeedsCare from '../assets/images/hero_special_needs_care.jpg?w=640;960;1376&format=webp;jpg&as=picture';
+import heroTuitionSchoolMeals from '../assets/images/hero_tuition_school_meals.jpg?w=640;960;1376&format=webp;jpg&as=picture';
+
+const HERO_SIZES = '100vw';
 
 interface HeroProps {
   campaign: Campaign;
@@ -39,7 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
   // Hero Image Slideshow collection with realistic documentary photography
   const heroSlides = [
     {
-      url: heroChildLongingMeal,
+      picture: heroChildLongingMeal,
       label: campaign.title,
       tag: 'Public Charitable Trust',
       badge: '🏛️ Est. 5th July 2010',
@@ -48,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
       subtitle: 'Every donation directly funds nutritious meals, education, and healthcare for orphaned children, abandoned seniors, and special needs children in Chennai & Thiruvallur.',
     },
     {
-      url: heroRedhillsOrphanage,
+      picture: heroRedhillsOrphanage,
       label: 'Redhills Orphanage Home',
       tag: 'Our Campus',
       badge: '🏡 45 Resident Boys & Girls',
@@ -57,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
       subtitle: 'Managed by 16 committed staff members, providing full shelter, nutrition, healthcare, and education to 45 orphaned children.',
     },
     {
-      url: heroSpecialNeedsCare,
+      picture: heroSpecialNeedsCare,
       label: 'Special Needs School',
       tag: 'Thiruvallur District',
       badge: '♿ Special Education & Physiotherapy',
@@ -66,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
       subtitle: 'Qualified special educators and physiotherapists providing structured learning and physical therapy.',
     },
     {
-      url: heroTuitionSchoolMeals,
+      picture: heroTuitionSchoolMeals,
       label: '346 Evening Tuition Students',
       tag: '8 Tuition Centers',
       badge: '📚 Free Education & Supplies',
@@ -79,16 +83,21 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  // Preload all hero slide images immediately into browser cache on mount
+  // Prefetch the remaining slides once the page is idle so they don't compete with the first one
   useEffect(() => {
-    // Just a tiny delay so it doesn't block LCP
-    const timer = setTimeout(() => {
+    const prefetch = () => {
       heroSlides.slice(1).forEach((slide) => {
         const img = new Image();
-        img.src = slide.url;
+        img.sizes = HERO_SIZES;
+        img.srcset = slide.picture.sources.webp || slide.picture.img.src;
       });
-    }, 1500);
-    return () => clearTimeout(timer);
+    };
+    const id = window.requestIdleCallback
+      ? window.requestIdleCallback(prefetch, { timeout: 4000 })
+      : window.setTimeout(prefetch, 2500);
+    return () => {
+      window.cancelIdleCallback ? window.cancelIdleCallback(id) : window.clearTimeout(id);
+    };
   }, [campaign.id]);
 
   // Auto transition slides slowly horizontally with fade effect every 5 seconds
@@ -133,14 +142,13 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
             }}
             className="absolute inset-0 w-full h-full"
           >
-            <img
-              src={heroSlides[currentSlide].url}
+            <Picture
+              picture={heroSlides[currentSlide].picture}
+              sizes={HERO_SIZES}
               alt={`Truth Foundation NGO - ${heroSlides[currentSlide].title} - ${heroSlides[currentSlide].label}`}
               loading={currentSlide === 0 ? 'eager' : 'lazy'}
               fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
               decoding={currentSlide === 0 ? 'sync' : 'async'}
-              width="1920"
-              height="1080"
               className="w-full h-full object-cover object-center"
             />
           </motion.div>

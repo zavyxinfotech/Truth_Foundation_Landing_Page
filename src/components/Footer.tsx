@@ -10,7 +10,7 @@ export interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
-  const [activeModal, setActiveModal] = useState<'privacy' | 'terms' | null>(null);
+  const [activeModal, setActiveModal] = useState<'privacy' | 'terms' | 'refund' | null>(null);
 
   useEffect(() => {
     if (activeModal) {
@@ -214,6 +214,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
             <button onClick={() => setActiveModal('privacy')} className="hover:text-[#da8a24] underline cursor-pointer">Privacy Policy</button>
             <span className="text-slate-400">•</span>
             <button onClick={() => setActiveModal('terms')} className="hover:text-[#da8a24] underline cursor-pointer">Terms & Conditions</button>
+            <span className="text-slate-400">•</span>
+            <button onClick={() => setActiveModal('refund')} className="hover:text-[#da8a24] underline cursor-pointer">Refund Policy</button>
           </div>
         </div>
 
@@ -232,19 +234,33 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
             </button>
 
             <h3 className="text-2xl font-bold text-[#0a2240]">
-              {activeModal === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions'}
+              {activeModal === 'privacy' && 'Privacy Policy'}
+              {activeModal === 'terms' && 'Terms & Conditions'}
+              {activeModal === 'refund' && 'Refund Policy'}
             </h3>
 
-            <div className="text-xs sm:text-sm text-slate-600 space-y-3 leading-relaxed">
-              <p>
-                Truth Foundation values your trust and is committed to protecting your personal data. All donor information collected on this landing page is strictly used for payment processing, receipt issuance, and donation status updates.
-              </p>
-              <p>
-                <strong>Security:</strong> All payments are processed through Razorpay's secure encrypted checkout. We do not store credit card CVVs or net banking passwords.
-              </p>
-              <p>
-                <strong>Refunds & Cancellations:</strong> Donations once processed are non-refundable as they are immediately committed to meal procurement drives.
-              </p>
+            <div className="text-xs sm:text-sm text-slate-600 space-y-4 leading-relaxed">
+              {activeModal === 'privacy' && (
+                <>
+                  <p><strong>1. Information Collection:</strong> We collect personal information (name, email, phone number, PAN) solely for the purpose of processing donations, communicating updates, and issuing 80G tax exemption receipts.</p>
+                  <p><strong>2. Data Security:</strong> Your data is stored securely. We do not store sensitive payment information like credit card numbers or CVV. All transactions are securely processed via Razorpay.</p>
+                  <p><strong>3. Data Sharing:</strong> Truth Foundation values your trust. We do not sell, rent, or share your personal information with any third parties, except as required by law for tax reporting purposes.</p>
+                </>
+              )}
+              {activeModal === 'terms' && (
+                <>
+                  <p><strong>1. General terms:</strong> By accessing and donating through this website, you agree to these Terms and Conditions. The content provided is for informational and charitable purposes.</p>
+                  <p><strong>2. Donation Usage:</strong> Donations are strictly used for the causes outlined (e.g., meals, education, healthcare). Truth Foundation reserves the right to allocate funds to the most pressing needs if a specific campaign is fully funded.</p>
+                  <p><strong>3. Tax Exemption:</strong> Donations are eligible for 80G tax benefits. It is the donor's strict responsibility to provide accurate PAN details during the donation process.</p>
+                </>
+              )}
+              {activeModal === 'refund' && (
+                <>
+                  <p><strong>1. Non-refundable Donations:</strong> As a charitable trust, donations made to Truth Foundation are generally non-refundable once the transaction is successful and the receipt is generated, as funds are immediately committed to procurement.</p>
+                  <p><strong>2. Erroneous Transactions:</strong> In case of a duplicate transaction or an erroneous deduction due to a technical glitch, please contact us via WhatsApp or phone within 3 days.</p>
+                  <p><strong>3. Refund Processing:</strong> Approved refunds for verified technical errors will be processed back to the original payment method within 7-10 working days.</p>
+                </>
+              )}
             </div>
           </div>
         </div>,

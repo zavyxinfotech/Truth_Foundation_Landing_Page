@@ -10,6 +10,12 @@ export default defineConfig(() => {
     plugins: [
       react(),
       tailwindcss(),
+      imagetools(),
+      lcpPreload({
+        source: 'src/assets/images/hero_child_longing_meal.jpg',
+        widths: [640, 960, 1376],
+        sizes: '100vw',
+      }),
     ],
     resolve: {
       alias: {
