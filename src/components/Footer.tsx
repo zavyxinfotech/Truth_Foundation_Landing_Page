@@ -113,14 +113,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
                   </a>
                 </div>
 
-                <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
+                <p className="text-slate-600 leading-relaxed font-sans text-sm pl-5">
                   #244, Mallima Nagar, Vilagadupakkam,<br />
                   Redhills, Chennai - 600052
                 </p>
 
                 <div className="flex items-center gap-1.5 text-xs text-slate-700 pl-5">
                   <PhoneCall className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <a href="tel:04426511661" className="text-[#da8a24] font-bold hover:underline">044-26511661</a>
+                  <a href="tel:+919962294949" className="text-[#da8a24] font-bold hover:underline">9962294949</a>
                 </div>
               </div>
 
@@ -142,14 +142,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
                   </a>
                 </div>
 
-                <p className="text-slate-600 leading-relaxed font-sans text-xs pl-5">
+                <p className="text-slate-600 leading-relaxed font-sans text-sm pl-5">
                   #49, Venus Nagar Main Road,<br />
                   Kolathur, Chennai - 600099
                 </p>
 
                 <div className="flex items-center gap-1.5 text-xs text-slate-700 pl-5">
                   <PhoneCall className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <a href="tel:04428552376" className="text-[#da8a24] font-bold hover:underline">044-28552376</a>
+                  <a href="tel:+919962294949" className="text-[#da8a24] font-bold hover:underline">9962294949</a>
                 </div>
               </div>
 
