@@ -80,14 +80,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
 
             {/* Social Media Links Positioned Below Quick Links */}
             <div className="pt-2 flex items-center gap-3 text-slate-700">
-              <a href="https://facebook.com/TruthFoundationNGO" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Facebook">
+              <a href="https://www.facebook.com/truthfoundationchennai" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Facebook">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="https://instagram.com/TruthFoundationNGO" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Instagram">
+              <a href="https://www.instagram.com/truthfoundationchennai/?fbclid=IwY2xjawUV5kBwZG9mA2V4dG4DYWVtAjExAGJyaWQRMTB1Z2FCUHFTYUt2RVM3ODBzcnRjBmFwcF9pZAEwAAEewe4pCjbrfXpnlrMmeHATUD4qQxi3a2phuazdcvIowYTZSvlOjF0BT97V8Z0_aem_ZtSBR-BmcDQw_LanjwRpvg" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="Instagram">
                 <Instagram className="w-4 h-4" />
-              </a>
-              <a href="https://linkedin.com/company/truth-foundation" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-white border border-slate-200/90 shadow-sm hover:bg-[#da8a24] hover:text-white flex items-center justify-center transition cursor-pointer transform hover:scale-105" aria-label="LinkedIn">
-                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>

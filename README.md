@@ -138,7 +138,7 @@ The first hero slide is the LCP element; `plugins/lcp-preload.ts` injects a resp
 
 - **Corporate Office**: #49, Venus Nagar Main Road, Kolathur, Chennai - 600099 (Phone: `044-28552376`)
 - **Registered Home Office**: #244, Mallima Nagar, Vilagadupakkam, Redhills, Chennai - 600052 (Phone: `044-26511661`)
-- **WhatsApp Support**: [+91 63827 21178](https://wa.me/916382721178)
+- **WhatsApp Support**: [+91 99622 94949](https://wa.me/919962294949)
 
 ---
 

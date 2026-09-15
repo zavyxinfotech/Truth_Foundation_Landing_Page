@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   const handleWhatsAppClick = () => {
     pixelTracker.trackWhatsAppClick('Header WhatsApp Button');
     const msg = encodeURIComponent(`Hello Truth Foundation! I am interested in donating meals or volunteering.`);
-    window.open(`https://wa.me/916382721178?text=${msg}`, '_blank');
+    window.open(`https://wa.me/919962294949?text=${msg}`, '_blank');
   };
 
   return (
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({
       }`}
     >
       {/* Main Navbar Container */}
-      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-18 flex items-center justify-between gap-1.5 sm:gap-4">
+      <div className="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-24 flex items-center justify-between gap-1.5 sm:gap-4">
         
         {/* Left Side: Brand Logo & Title */}
         <div className="flex items-center min-w-0 shrink">
@@ -59,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
                 width={128}
                 height={128}
                 fetchPriority="high"
-                className="relative w-10 h-10 sm:w-13 sm:h-13 lg:w-14 lg:h-14 rounded-full object-cover border-2 border-[#da8a24] shadow-lg shrink-0"
+                className="relative w-10 h-10 sm:w-13 sm:h-13 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-[#da8a24] shadow-lg shrink-0"
               />
             </motion.div>
 
