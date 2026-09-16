@@ -59,16 +59,16 @@ export const Header: React.FC<HeaderProps> = ({
                 width={128}
                 height={128}
                 fetchPriority="high"
-                className="relative w-10 h-10 sm:w-13 sm:h-13 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-[#da8a24] shadow-lg shrink-0"
+                className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-20 lg:h-20 rounded-full object-cover border-2 border-[#da8a24] shadow-lg shrink-0"
               />
             </motion.div>
 
             <div className="min-w-0 text-left">
-              <span className="text-sm xs:text-base sm:text-3xl lg:text-[26px] font-extrabold text-white tracking-tight leading-none block group-hover:text-[#da8a24] transition-colors whitespace-nowrap drop-shadow-sm">
+              <span className="text-base xs:text-lg sm:text-3xl lg:text-[26px] font-extrabold text-white tracking-tight leading-none block group-hover:text-[#da8a24] transition-colors whitespace-nowrap drop-shadow-sm">
                 TRUTH FOUNDATION
               </span>
               <div className="flex items-center gap-1.5 pt-0.5">
-                <p className="text-[8px] xs:text-[10px] sm:text-xs lg:text-[13px] font-bold text-[#ffffff] uppercase tracking-widest whitespace-nowrap">
+                <p className="text-[10px] xs:text-xs sm:text-xs lg:text-[13px] font-bold text-[#ffffff] uppercase tracking-widest whitespace-nowrap">
                   Registered NGO &bull; Chennai, India
                 </p>
               </div>
@@ -84,7 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.96 }}
             onClick={handleWhatsAppClick}
-            className="flex items-center justify-center gap-1.5 sm:gap-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-extrabold shadow-sm cursor-pointer transition-all shrink-0
+            className="hidden sm:flex items-center justify-center gap-1.5 sm:gap-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-extrabold shadow-sm cursor-pointer transition-all shrink-0
               w-9 h-9 sm:w-auto sm:h-auto sm:px-4 sm:py-2 lg:px-5 lg:py-2.5 text-xs sm:text-sm lg:text-base"
             title="Chat on WhatsApp"
             aria-label="Chat on WhatsApp"
