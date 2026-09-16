@@ -239,9 +239,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateHome }) => {
             <div className="text-xs sm:text-sm text-slate-600 space-y-4 leading-relaxed">
               {activeModal === 'privacy' && (
                 <>
-                  <p><strong>1. Information Collection:</strong> We collect personal information (name, email, phone number, PAN) solely for the purpose of processing donations, communicating updates, and issuing 80G tax exemption receipts.</p>
-                  <p><strong>2. Data Security:</strong> Your data is stored securely. We do not store sensitive payment information like credit card numbers or CVV. All transactions are securely processed via Razorpay.</p>
-                  <p><strong>3. Data Sharing:</strong> Truth Foundation values your trust. We do not sell, rent, or share your personal information with any third parties, except as required by law for tax reporting purposes.</p>
+                  <p><strong>1. Information Collection:</strong> We collect essential information such as name, email, and phone number strictly for processing donations and issuing 80G tax exemptions.</p>
+                  <p><strong>2. Data Security:</strong> Your data is protected with industry-standard encryption. We use secure gateways for transactions and never store your credit card or sensitive payment details.</p>
+                  <p><strong>3. Communication & Marketing:</strong> We may occasionally send updates via SMS, WhatsApp, or email regarding our relief campaigns. You can opt out of these communications at any time.</p>
+                  <p><strong>4. Third-Party Sharing:</strong> We value your trust. Truth Foundation strictly does not sell, rent, or trade your personal or contact information with any third parties.</p>
+                  <p><strong>5. Contact Information:</strong> For any privacy concerns, data removal requests, or queries, please contact Truth Foundation directly at <strong>+91 99622 94949</strong>.</p>
                 </>
               )}
               {activeModal === 'terms' && (
