@@ -1,7 +1,8 @@
 /* cspell:disable */
 /* eslint-disable */
 import React, { useState } from 'react';
-import { Heart, QrCode, CreditCard, Building, Wallet, ShieldCheck, Lock, CheckCircle2 } from 'lucide-react';
+import { Heart, ShieldCheck, Lock, CheckCircle2, Download, Printer, RefreshCw } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?w=128&format=webp';
 import sadChildPainting from '../assets/images/sad_child_painting.jpg?w=512;1024&format=webp;jpg&as=picture';
 import brushMask from '../assets/images/brush_mask.png?w=700&format=webp';
@@ -19,8 +20,9 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
   const [selectedAmount, setSelectedAmount] = useState<number>(initialAmount);
   const [isCustom, setIsCustom] = useState<boolean>(false);
   const [customValue, setCustomValue] = useState<string>('');
-  const [paymentMethod, setPaymentMethod] = useState<'UPI' | 'Card' | 'NetBank' | 'Wallet'>('UPI');
-  const [selectedUpiOption, setSelectedUpiOption] = useState<string>('Google Pay');
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [paymentSuccess, setPaymentSuccess] = useState<{ paymentId: string; amount: number } | null>(null);
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -41,14 +43,106 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
+    setIsProcessing(true);
     pixelTracker.trackDonateClick(activeAmount, 'Separate Donate Page Submit');
-    if (onDonateSuccess) onDonateSuccess();
-    else if (onClose) onClose();
-  };
 
-  const upiOptions = ['Google Pay', 'PhonePe', 'Paytm UPI', 'Scan QR Code'];
+    try {
+      const amountInPaise = Math.max(100, activeAmount * 100);
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: 'INR',
+          receipt: `rcpt_${Date.now()}`
+        }),
+      });
+
+      const orderData = await res.json();
+
+      if (!res.ok || !orderData.order_id) {
+        throw new Error(orderData.error || 'Failed to create Razorpay order');
+      }
+
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TkcXDVNE0IJstM';
+
+      if (typeof window.Razorpay !== 'function') {
+        throw new Error('Razorpay SDK failed to load. Please check your network connection.');
+      }
+
+      const options = {
+        key: razorpayKey,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'Truth Foundation',
+        description: 'Contribution – Feed & Educate Children',
+        image: truthLogo,
+        order_id: orderData.order_id,
+        handler: async function (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) {
+          try {
+            const verifyRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+            setIsProcessing(false);
+
+            if (verifyRes.ok && verifyData.success) {
+              setPaymentSuccess({ paymentId: response.razorpay_payment_id, amount: activeAmount });
+              pixelTracker.trackPaymentCompleted(activeAmount, formData.fullName, response.razorpay_payment_id);
+
+              confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+              });
+            } else {
+              setErrorMessage(verifyData.error || 'Payment verification failed');
+            }
+          } catch (err: any) {
+            setIsProcessing(false);
+            setErrorMessage(err.message || 'Payment verification failed');
+          }
+        },
+        prefill: {
+          name: formData.fullName,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: '#0a2240',
+        },
+        modal: {
+          ondismiss: function () {
+            setIsProcessing(false);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (resp: any) {
+        setIsProcessing(false);
+        setErrorMessage(resp.error?.description || 'Payment failed');
+      });
+      rzp.open();
+    } catch (err: any) {
+      setIsProcessing(false);
+      setErrorMessage(err.message || 'Failed to initiate Razorpay checkout');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#fdfbf7] text-slate-900 flex flex-col justify-between font-sans antialiased selection:bg-amber-400 selection:text-slate-950">
@@ -242,19 +336,93 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
             </div>
 
 
+            {errorMessage && (
+              <div className="p-3.5 bg-red-50 border border-red-200 rounded-2xl text-xs text-red-700 font-bold text-center">
+                ⚠️ {errorMessage}
+              </div>
+            )}
+
             {/* Primary Submit Button matching Reference Screenshot */}
             <button
               type="submit"
-              className="w-full h-14 bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black text-lg rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 uppercase tracking-wider"
+              disabled={isProcessing}
+              className="w-full h-14 bg-[#da8a24] hover:bg-[#c77a1e] text-[#0a2240] font-black text-lg rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 uppercase tracking-wider disabled:opacity-75 disabled:cursor-not-allowed"
             >
-              <Lock className="w-5 h-5 fill-[#0a2240] text-[#0a2240] shrink-0" />
-              <span>DONATE NOW</span>
+              {isProcessing ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-[#0a2240] border-t-transparent rounded-full animate-spin" />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="w-5 h-5 fill-[#0a2240] text-[#0a2240] shrink-0" />
+                  <span>DONATE NOW</span>
+                </>
+              )}
             </button>
 
           </div>
 
         </form>
       </main>
+
+      {/* Payment Success Overlay / Receipt View */}
+      {paymentSuccess && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl text-center border border-slate-200">
+            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+              <CheckCircle2 className="w-10 h-10" />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                Payment Successful
+              </span>
+              <h2 className="text-2xl font-black text-[#0a2240]">Thank You For Your Support!</h2>
+              <p className="text-xs text-slate-600">
+                Your generous contribution of <strong className="text-slate-900">₹{paymentSuccess.amount.toLocaleString()}</strong> has been received by Truth Foundation.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
+              <div className="flex justify-between border-b pb-2">
+                <span className="text-slate-500 font-medium">Transaction ID</span>
+                <span className="font-mono font-bold text-slate-900">{paymentSuccess.paymentId}</span>
+              </div>
+              <div className="flex justify-between border-b pb-2">
+                <span className="text-slate-500 font-medium">Donor Name</span>
+                <span className="font-bold text-slate-900">{formData.fullName || 'Valued Donor'}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500 font-medium">Tax Exemption</span>
+                <span className="font-bold text-emerald-700">Eligible for 80G Benefit</span>
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-2xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print Receipt</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setPaymentSuccess(null);
+                  if (onNavigateHome) onNavigateHome();
+                  else if (onClose) onClose();
+                }}
+                className="flex-1 py-3 bg-[#0a2240] hover:bg-[#12335c] text-white font-bold rounded-2xl text-xs transition flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                <span>Return to Home</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Simple minimal footer for Donate page */}
       <footer className="py-6 border-t border-amber-200/50 text-center text-xs text-slate-500 font-medium">

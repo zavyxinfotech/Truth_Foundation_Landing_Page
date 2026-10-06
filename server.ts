@@ -2,12 +2,13 @@ import 'dotenv/config';
 import express from 'express';
 import crypto from 'crypto';
 import Razorpay from 'razorpay';
+import { execSync } from 'child_process';
 
 const app = express();
 app.use(express.json());
 
-const KEY_ID = process.env.RAZORPAY_KEY_ID;
-const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+const KEY_ID = process.env.RAZORPAY_KEY_ID?.trim();
+const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET?.trim();
 
 if (!KEY_ID || !KEY_SECRET) {
   console.error('❌ RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET must be set in .env');
@@ -44,10 +45,17 @@ app.post('/api/create-order', async (req, res) => {
       amount: order.amount,
       currency: order.currency,
     });
-  } catch (err: unknown) {
+  } catch (err: any) {
     console.error('create-order error:', err);
-    const status = (err as { statusCode?: number }).statusCode || 500;
-    res.status(status).json({ error: 'Failed to create Razorpay order' });
+    const errDesc = err?.error?.description || err?.message || '';
+    if (err.statusCode === 401 || errDesc.toLowerCase().includes('authentication failed')) {
+      res.status(401).json({ error: 'Razorpay API Authentication Failed. Please verify your KEY_ID and KEY_SECRET.' });
+      return;
+    }
+    const status = err.statusCode || 500;
+    res.status(status).json({
+      error: errDesc || 'Failed to create Razorpay order'
+    });
   }
 });
 
@@ -78,8 +86,35 @@ app.post('/api/verify-payment', (req, res) => {
   res.json({ success: true, payment_id: razorpay_payment_id });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+const PORT = Number(process.env.PORT) || 3001;
+
+function freePort(port: number) {
+  try {
+    if (process.platform === 'win32') {
+      const output = execSync(`netstat -ano | findstr :${port}`).toString();
+      for (const line of output.split('\n')) {
+        if (line.includes('LISTENING')) {
+          const parts = line.trim().split(/\s+/);
+          const pid = parts[parts.length - 1];
+          if (pid && pid !== process.pid.toString() && pid !== '0') {
+            try { execSync(`taskkill /F /PID ${pid}`); } catch (_) {}
+          }
+        }
+      }
+    } else {
+      try { execSync(`fuser -k ${port}/tcp`); } catch (_) {}
+    }
+  } catch (_) {}
+}
+
+freePort(PORT);
+
+const server = app.listen(PORT, () => {
   console.log(`✅ Truth Foundation API server running on http://localhost:${PORT}`);
   console.log(`   Razorpay Key ID: ${KEY_ID}`);
+});
+
+server.on('error', (err: any) => {
+  console.error('❌ Server error:', err);
+  process.exit(1);
 });

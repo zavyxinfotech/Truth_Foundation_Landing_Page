@@ -9,6 +9,8 @@ import truthLogo from '../assets/images/truth_foundation_logo_1785562616008.jpg?
 interface RazorpayModalProps {
   initialAmount: number;
   initialFrequency?: 'One-time' | 'Monthly';
+  initialStep?: 1 | 2 | 3 | 4 | 5;
+  initialDonorDetails?: Partial<DonorDetails>;
   campaign?: Campaign;
   onClose: () => void;
 }
@@ -16,6 +18,8 @@ interface RazorpayModalProps {
 export const RazorpayModal: React.FC<RazorpayModalProps> = ({
   initialAmount,
   initialFrequency = 'One-time',
+  initialStep = 1,
+  initialDonorDetails,
   campaign,
   onClose
 }) => {
@@ -26,26 +30,27 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
     };
   }, []);
 
-  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1); // 1: Amount, 2: Details, 3: Razorpay Gateway, 4: Processing, 5: Success Receipt
+  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(initialStep);
   const [amount, setAmount] = useState<number>(initialAmount || 500);
   const [frequency, setFrequency] = useState<'One-time' | 'Monthly'>(initialFrequency);
   const [paymentMethod, setPaymentMethod] = useState<'UPI' | 'Card' | 'NetBanking' | 'Wallet'>('UPI');
   const [upiApp, setUpiApp] = useState<'gpay' | 'phonepe' | 'paytm' | 'qr'>('gpay');
 
   const [donorDetails, setDonorDetails] = useState<DonorDetails>({
-    fullName: '',
-    email: '',
-    phone: '',
-    panNumber: '',
-    address: '',
-    city: '',
-    state: '',
-    pincode: '',
+    fullName: initialDonorDetails?.fullName || '',
+    email: initialDonorDetails?.email || '',
+    phone: initialDonorDetails?.phone || '',
+    panNumber: initialDonorDetails?.panNumber || '',
+    address: initialDonorDetails?.address || '',
+    city: initialDonorDetails?.city || '',
+    state: initialDonorDetails?.state || '',
+    pincode: initialDonorDetails?.pincode || '',
     isEightYGRequired: true,
     isAnonymous: false,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [transactionId, setTransactionId] = useState<string>('');
 
   const mealsCount = Math.floor(amount / 20);
@@ -70,31 +75,128 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
     }
 
     setErrors({});
+    setErrorMessage('');
     pixelTracker.track('AddPaymentInfo', {
       amount,
       frequency,
       donor_email: donorDetails.email,
       pan_provided: !!donorDetails.panNumber
     });
-    setStep(3);
+    
+    // Launch Razorpay directly upon form completion
+    handlePayNow();
   };
 
-  const handlePayNow = () => {
+  const handlePayNow = async () => {
+    setErrorMessage('');
     setStep(4); // Processing
-    const txn = 'TXN_TF_' + Math.floor(100000000 + Math.random() * 900000000);
-    setTransactionId(txn);
 
-    setTimeout(() => {
-      setStep(5); // Success Receipt
-      pixelTracker.trackPaymentCompleted(amount, donorDetails.fullName, txn);
-
-      // Trigger Confetti Celebration
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 }
+    try {
+      // 1. Create order on backend (amount in paise, minimum 100)
+      const amountInPaise = Math.max(100, amount * 100);
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: 'INR',
+          receipt: `rcpt_${Date.now()}`
+        }),
       });
-    }, 2500);
+
+      const orderData = await res.json();
+
+      if (!res.ok || !orderData.order_id) {
+        throw new Error(orderData.error || 'Failed to create Razorpay order');
+      }
+
+      // 2. Open Razorpay Checkout modal
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TkcXDVNE0IJstM';
+
+      if (typeof window.Razorpay !== 'function') {
+        throw new Error('Razorpay SDK failed to load. Please check your internet connection.');
+      }
+
+      const options = {
+        key: razorpayKey,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: 'Truth Foundation',
+        description: `${frequency} Contribution – Feed Children`,
+        image: truthLogo,
+        order_id: orderData.order_id,
+        handler: async function (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) {
+          try {
+            setStep(4); // Processing payment verification
+            const verifyRes = await fetch('/api/verify-payment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            const verifyData = await verifyRes.json();
+
+            if (verifyRes.ok && verifyData.success) {
+              setTransactionId(response.razorpay_payment_id);
+              setStep(5); // Success Receipt
+              pixelTracker.trackPaymentCompleted(amount, donorDetails.fullName, response.razorpay_payment_id);
+
+              confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+              });
+            } else {
+              setErrorMessage(verifyData.error || 'Payment verification failed: signature mismatch');
+              setStep(2);
+            }
+          } catch (err: any) {
+            setErrorMessage(err.message || 'Payment verification failed');
+            setStep(2);
+          }
+        },
+        prefill: {
+          name: donorDetails.fullName,
+          email: donorDetails.email,
+          contact: donorDetails.phone,
+        },
+        notes: {
+          panNumber: donorDetails.panNumber,
+          frequency: frequency,
+        },
+        theme: {
+          color: '#0a2240',
+        },
+        modal: {
+          ondismiss: function () {
+            console.log('Payment modal dismissed by user');
+            setStep(2);
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+
+      rzp.on('payment.failed', function (response: any) {
+        console.error('Payment failed event:', response.error);
+        setErrorMessage(response.error?.description || 'Payment failed. Please try again.');
+        setStep(2);
+      });
+
+      rzp.open();
+    } catch (err: any) {
+      console.error('Razorpay process error:', err);
+      setErrorMessage(err.message || 'Payment process failed. Please try again.');
+      setStep(2);
+    }
   };
 
   return createPortal(
@@ -256,6 +358,12 @@ export const RazorpayModal: React.FC<RazorpayModalProps> = ({
                 Amount: ₹{amount.toLocaleString()} ({frequency === 'Monthly' ? 'Monthly Partner Pledge' : 'One-Time Contribution'})
               </div>
             </div>
+
+            {errorMessage && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-semibold text-center">
+                ⚠️ {errorMessage}
+              </div>
+            )}
 
             <div className="space-y-3 text-xs">
               <div>
