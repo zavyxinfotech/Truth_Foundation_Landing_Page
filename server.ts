@@ -111,7 +111,7 @@ freePort(PORT);
 
 const server = app.listen(PORT, () => {
   console.log(`✅ Truth Foundation API server running on http://localhost:${PORT}`);
-  console.log(`   Razorpay Key ID: ${KEY_ID}`);
+  console.log(`   Razorpay integration initialized successfully`);
 });
 
 server.on('error', (err: any) => {
