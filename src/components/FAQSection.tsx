@@ -114,7 +114,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ onOpenDonateModal }) => 
 
               {/* Preset Amount Grid + Compact Custom Pill */}
               <div className="grid grid-cols-3 gap-2.5 pt-1">
-                {[100, 500, 1000, 2500, 5000].map((amt) => {
+                {[500, 1000, 2500, 5000].map((amt) => {
                   const isSelected = !isCustom && selectedAmt === amt;
                   return (
                     <button

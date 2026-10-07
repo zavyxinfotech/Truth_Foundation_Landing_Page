@@ -24,7 +24,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
   const [customVal, setCustomVal] = useState<string>('');
   const [showFloatingCta, setShowFloatingCta] = useState<boolean>(false);
 
-  const activeAmount = isCustom ? (parseInt(customVal, 10) || campaign.minAmount || 100) : selectedAmount;
+  const activeAmount = isCustom ? (parseInt(customVal, 10) || campaign.minAmount || 500) : selectedAmount;
 
   // Track scroll position to show floating donate button ONLY after scrolling down past hero section
   useEffect(() => {
@@ -48,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ campaign, onOpenDonateModal, onSelec
       tag: 'Public Charitable Trust',
       badge: '🏛️ Est. 5th July 2010',
       title: 'ONE MEAL. ONE SMILE.',
-      tagline: 'Your ₹100 can provide a warm, nutritious meal to a child in need.',
+      tagline: 'Your contribution can provide warm, nutritious meals to children in need.',
       subtitle: 'Every donation directly funds nutritious meals, education, and healthcare for orphaned children, abandoned seniors, and special needs children.',
     },
     {

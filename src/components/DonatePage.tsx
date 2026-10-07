@@ -30,7 +30,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
     phone: '',
   });
 
-  const activeAmount = isCustom ? (parseInt(customValue, 10) || 100) : selectedAmount;
+  const activeAmount = isCustom ? (parseInt(customValue, 10) || 500) : selectedAmount;
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -210,7 +210,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
 
               {/* 2-Row Amount Grid (Exact Reference Styling) */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {[100, 500, 1000, 2500, 5000, 10000].map((amt) => {
+                {[500, 1000, 2500, 5000, 10000].map((amt) => {
                   const isSelected = !isCustom && selectedAmount === amt;
                   return (
                     <button

@@ -94,7 +94,7 @@ export const WhyDonate: React.FC<WhyDonateProps> = ({ onOpenDonateModal }) => {
             Transforming Lives, One Plate at a Time
           </h2>
           <p className="text-sm sm:text-lg lg:text-[20px] text-slate-600 leading-relaxed font-light">
-            Your small contribution creates a massive ripple effect in the life of a child. Here is how your ₹100 turns into health, dignity, and education.
+            Your small contribution creates a massive ripple effect in the life of a child. Here is how your support turns into health, dignity, and education.
           </p>
         </motion.div>
 
