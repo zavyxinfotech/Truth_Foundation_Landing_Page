@@ -51,7 +51,7 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
 
     try {
       const amountInPaise = Math.max(100, activeAmount * 100);
-      const res = await fetch('/api/create-order', {
+      const res = await fetch('/api/create-order/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -61,12 +61,19 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
         }),
       });
 
-      const orderData = await res.json();
-
-      if (!res.ok || !orderData.order_id) {
-        throw new Error(orderData.error || 'Failed to create Razorpay order');
+      const resText = await res.text();
+      let orderData: any = {};
+      try {
+        orderData = resText ? JSON.parse(resText) : {};
+      } catch (_) {
+        orderData = {};
       }
 
+      if (!res.ok || (!orderData.order_id && !orderData.id)) {
+        throw new Error(orderData.error || `Server connection error (${res.status}). Please verify server backend is running.`);
+      }
+
+      const orderId = orderData.order_id || orderData.id;
       const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_live_TkcXDVNE0IJstM';
 
       if (typeof window.Razorpay !== 'function') {
@@ -75,19 +82,19 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
 
       const options = {
         key: razorpayKey,
-        amount: orderData.amount,
-        currency: orderData.currency,
+        amount: orderData.amount || amountInPaise,
+        currency: orderData.currency || 'INR',
         name: 'Truth Foundation',
         description: 'Contribution – Feed & Educate Children',
         image: truthLogo,
-        order_id: orderData.order_id,
+        order_id: orderId,
         handler: async function (response: {
           razorpay_payment_id: string;
           razorpay_order_id: string;
           razorpay_signature: string;
         }) {
           try {
-            const verifyRes = await fetch('/api/verify-payment', {
+            const verifyRes = await fetch('/api/verify-payment/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -97,7 +104,9 @@ export const DonatePage: React.FC<DonatePageProps> = ({ initialAmount = 500, onC
               }),
             });
 
-            const verifyData = await verifyRes.json();
+            const verifyText = await verifyRes.text();
+            let verifyData: any = {};
+            try { verifyData = verifyText ? JSON.parse(verifyText) : {}; } catch (_) {}
             setIsProcessing(false);
 
             if (verifyRes.ok && verifyData.success) {

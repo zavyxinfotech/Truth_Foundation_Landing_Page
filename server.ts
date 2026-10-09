@@ -10,19 +10,36 @@ app.use(express.json());
 const KEY_ID = process.env.RAZORPAY_KEY_ID?.trim();
 const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET?.trim();
 
-if (!KEY_ID || !KEY_SECRET) {
-  console.error('❌ RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET must be set in .env');
-  process.exit(1);
+let razorpay: Razorpay | null = null;
+if (KEY_ID && KEY_SECRET) {
+  razorpay = new Razorpay({
+    key_id: KEY_ID,
+    key_secret: KEY_SECRET,
+  });
+} else {
+  console.warn('⚠️ WARNING: RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET is missing in environment variables.');
 }
 
-const razorpay = new Razorpay({
-  key_id: KEY_ID,
-  key_secret: KEY_SECRET,
+// Health check endpoint for verifying cPanel Passenger / Local routing
+app.get(['/', '/api', '/api/', '/health', '/api/health'], (_req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'Truth Foundation Razorpay Backend API',
+    razorpayConfigured: !!(KEY_ID && KEY_SECRET),
+    timestamp: new Date().toISOString()
+  });
 });
 
-// POST /api/create-order
-app.post('/api/create-order', async (req, res) => {
+// POST /api/create-order (handles both trailing slash & cPanel Passenger URI stripping)
+app.post(['/api/create-order', '/api/create-order/', '/create-order', '/create-order/'], async (req, res) => {
   try {
+    if (!KEY_ID || !KEY_SECRET || !razorpay) {
+      res.status(500).json({
+        error: 'Razorpay API credentials (RAZORPAY_KEY_ID & RAZORPAY_KEY_SECRET) are missing on server .env'
+      });
+      return;
+    }
+
     const { amount, currency = 'INR', receipt } = req.body as {
       amount: number;
       currency?: string;
@@ -35,7 +52,7 @@ app.post('/api/create-order', async (req, res) => {
     }
 
     const order = await razorpay.orders.create({
-      amount,              // already in paise from frontend
+      amount,              // in paise
       currency,
       receipt: receipt || `rcpt_${Date.now()}`,
     });
@@ -49,7 +66,7 @@ app.post('/api/create-order', async (req, res) => {
     console.error('create-order error:', err);
     const errDesc = err?.error?.description || err?.message || '';
     if (err.statusCode === 401 || errDesc.toLowerCase().includes('authentication failed')) {
-      res.status(401).json({ error: 'Razorpay API Authentication Failed. Please verify your KEY_ID and KEY_SECRET.' });
+      res.status(401).json({ error: 'Razorpay API Authentication Failed. Please verify your KEY_ID and KEY_SECRET in .env.' });
       return;
     }
     const status = err.statusCode || 500;
@@ -60,7 +77,12 @@ app.post('/api/create-order', async (req, res) => {
 });
 
 // POST /api/verify-payment
-app.post('/api/verify-payment', (req, res) => {
+app.post(['/api/verify-payment', '/api/verify-payment/', '/verify-payment', '/verify-payment/'], (req, res) => {
+  if (!KEY_SECRET) {
+    res.status(500).json({ error: 'Razorpay Key Secret is missing on server .env' });
+    return;
+  }
+
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body as {
     razorpay_order_id: string;
     razorpay_payment_id: string;
@@ -74,7 +96,7 @@ app.post('/api/verify-payment', (req, res) => {
 
   const body = razorpay_order_id + '|' + razorpay_payment_id;
   const expectedSignature = crypto
-    .createHmac('sha256', KEY_SECRET!)
+    .createHmac('sha256', KEY_SECRET)
     .update(body)
     .digest('hex');
 
@@ -107,7 +129,9 @@ function freePort(port: number) {
   } catch (_) {}
 }
 
-freePort(PORT);
+if (process.env.NODE_ENV !== 'production') {
+  freePort(PORT);
+}
 
 const server = app.listen(PORT, () => {
   console.log(`✅ Truth Foundation API server running on http://localhost:${PORT}`);
@@ -116,5 +140,4 @@ const server = app.listen(PORT, () => {
 
 server.on('error', (err: any) => {
   console.error('❌ Server error:', err);
-  process.exit(1);
 });
